@@ -45,7 +45,7 @@ function getClientKey() {
   const script = document.currentScript as HTMLScriptElement;
   const clientKey = script?.getAttribute('data-client-key');
 
-  if (!clientKey) {
+  if (!clientKey || clientKey !== 'client_abc123') {
     throw new Error('Missing data-client-key attribute');
   }
 

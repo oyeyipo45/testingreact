@@ -11,7 +11,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
     "build:widget": "rollup -c ./rollup.config.mjs",
     "build:widget:production": "rollup -c ./rollup.config.mjs --environment=production",
-    "serve": "npx http-server ./test --cors -p 3333",
+    "serve": "npx http-server ./test --cors -p 5173",
     "serve:widget": "npx http-server ./dist --cors -p 5173"
   },
   "dependencies": {
