@@ -24,6 +24,8 @@ export function Widget() {
 
       <div className="widget-content">
         {/* Your widget content goes here */}
+        <input />
+        <button>send</button>
       </div>
     </div>
   );
