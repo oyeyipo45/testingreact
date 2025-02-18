@@ -51,17 +51,28 @@ export function Chat(props: IChat) {
             <span className='online-text'>Online</span>
           </div>
           <div className='widget-nav'>
-            <img
-              src={back_icon}
-              alt='back'
-              onClick={() => setdisplayInView('home')}
-            />
-            <img src={hamburger_icon} alt='navigation' />
-            <img
-              onClick={() => setIsOpen(false)}
-              src={close_icon}
-              alt='navigation'
-            />
+            <div className='nav-icon-container'>
+              <img
+                src={back_icon}
+                alt='back'
+                onClick={() => setdisplayInView('home')}
+              />
+            </div>
+
+            <div className='nav-icon-container'>
+              <img src={hamburger_icon} alt='navigation' />
+            </div>
+
+            <div className='nav-icon-container'>
+              <img
+                onClick={() => {
+                  setIsOpen(false);
+                  setdisplayInView('home');
+                }}
+                src={close_icon}
+                alt='navigation'
+              />
+            </div>
           </div>
         </div>
         <div className='messages-container'>
@@ -83,16 +94,19 @@ export function Chat(props: IChat) {
             </div>
           ))}
         </div>
+      </div>
+
+      <div>
         <div className='separator-container'>
           <div className='separator' />
         </div>
-      </div>
 
-      <div className='footer'>
-        <input className='message-input' placeholder="Type here.." />
-        <div className='send-message'>
-          <div className='send-message-icon'>
-            <img src={rotated_send_icon} alt='send' />
+        <div className='footer'>
+          <input className='message-input' placeholder='Type here..' />
+          <div className='send-message'>
+            <div className='send-message-icon'>
+              <img src={rotated_send_icon} alt='send' />
+            </div>
           </div>
         </div>
       </div>

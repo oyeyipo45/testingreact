@@ -29,12 +29,18 @@ export function Widget(props: IWidget) {
       <div className='widget-container-body'>
         <div className='widget-header'>
           <div className='widget-nav'>
-            <img src={hamburger_icon} alt='navigation' />
-            <img
-              onClick={() => setIsOpen(false)}
-              src={close_icon}
-              alt='navigation'
-            />
+            <div className='nav-icon-container'>
+              <img src={hamburger_icon} alt='navigation' />
+            </div>
+            <div className='nav-icon-container'>
+              <img
+                onClick={() => {
+                  setIsOpen(false); setdisplayInView('home')
+                }}
+                src={close_icon}
+                alt='navigation'
+              />
+            </div>
           </div>
         </div>
 
@@ -86,24 +92,25 @@ export function Widget(props: IWidget) {
             </div>
           </div>
         </div>
+      </div>
 
+      <div>
         <div className='separator-container'>
           <div className='separator' />
         </div>
-      </div>
-
-      <div className='footer'>
-        <div className='footer-icon'>
-          <div>
-            <img src={home_icon} alt='home' />
+        <div className='footer'>
+          <div className='footer-icon'>
+            <div>
+              <img src={home_icon} alt='home' />
+            </div>
+            <span className='footer-text-home'>Chat</span>
           </div>
-          <span className='footer-text-home'>Chat</span>
-        </div>
-        <div className='footer-icon' onClick={() => setdisplayInView('chat')}>
-          <div className='footer-icon-container'>
-            <img src={message_icon} alt='chat' />
+          <div className='footer-icon' onClick={() => setdisplayInView('chat')}>
+            <div className='footer-icon-container'>
+              <img src={message_icon} alt='chat' />
+            </div>
+            <span className='footer-text-chat'>Chat</span>
           </div>
-          <span className='footer-text-chat'>Chat</span>
         </div>
       </div>
     </div>
