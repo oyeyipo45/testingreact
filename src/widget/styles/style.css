@@ -145,7 +145,7 @@
   }
 
   .user-message {
-    @apply flex max-w-[70%] p-4 bg-[#4C7B9A] rounded-[20px];
+    @apply flex max-w-[70%] p-4 bg-[#4C7B9A] rounded-[20px] text-white;
   }
 
   .bot-message-container {
@@ -332,7 +332,7 @@
   }
 
   .user-message {
-    @apply flex max-w-[70%] p-4 bg-[#4C7B9A] rounded-[20px];
+    @apply flex max-w-[70%] p-4 bg-[#4C7B9A] rounded-[20px] text-white;
   }
 
   .bot-message-container {
