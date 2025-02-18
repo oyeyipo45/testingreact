@@ -230,7 +230,7 @@
   }
 
   .widget-header {
-    @apply flex justify-end items-center p-6 border-2 mb-[89px];
+    @apply flex justify-end items-center p-6 border-2 mb-[30px];
   }
 
   .widget-chat-header {
@@ -294,7 +294,7 @@
   }
 
   .chat-with-us {
-    @apply my-6 p-6 bg-[#4C7B98] rounded-[20px] flex justify-between hover:bg-[#1a5270] hover:cursor-pointer;
+    @apply my-6 p-5 bg-[#4C7B98] rounded-[20px] flex justify-between hover:bg-[#1a5270] hover:cursor-pointer;
   }
 
   .chat-question-text {
