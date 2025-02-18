@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { WidgetContext } from '../lib/context';
 import {
   back_icon,
@@ -21,6 +21,38 @@ export function Chat(props: IChat) {
   const { setdisplayInView } = props;
   const { isOpen, setIsOpen } = useContext(WidgetContext);
 
+  const [messages, setMessages] = useState<IMessage[]>([]);
+
+  const [inputText, setInputText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef(null);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (inputText.trim() === '' || isLoading) return;
+
+    // Add user message
+    const userMessage = {
+      id: Math.random(),
+      content: inputText,
+      sender: 'user',
+    };
+
+    setMessages((prev: IMessage[]) => [...prev, userMessage]);
+    setInputText('');
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+      const botMessage = {
+        id: Math.random(),
+        content: 'How are you doing today ?',
+        sender: 'bot',
+      };
+      setMessages((prev: IMessage[]) => [...prev, botMessage]);
+    }, 500);
+  };
+
   if (!isOpen) {
     return (
       <button className='widget-button' onClick={() => setIsOpen(true)}>
@@ -29,7 +61,7 @@ export function Chat(props: IChat) {
     );
   }
 
-  const messages = [
+  const currentMessages = [
     {
       id: Math.random(),
       content: 'Hello',
@@ -93,6 +125,17 @@ export function Chat(props: IChat) {
               )}
             </div>
           ))}
+          {isLoading && (
+            <div className='loading-container'>
+              <div className='loading-inner-container'>
+                <div className='message-indicator'>
+                  <div className='line'></div>
+                  <div className='line'></div>
+                  <div className='line'></div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -100,15 +143,23 @@ export function Chat(props: IChat) {
         <div className='separator-container'>
           <div className='separator' />
         </div>
-
-        <div className='footer'>
-          <input className='message-input' placeholder='Type here..' />
-          <div className='send-message'>
-            <div className='send-message-icon'>
-              <img src={rotated_send_icon} alt='send' />
-            </div>
+        <form onSubmit={handleSubmit}>
+          <div className='footer'>
+            <input
+              className='message-input'
+              type='text'
+              placeholder='Type here..'
+              value={inputText}
+              disabled={isLoading}
+              onChange={(e) => setInputText(e.target.value)}
+            />
+            <button type='submit' className='send-message'>
+              <div className='send-message-icon'>
+                <img src={rotated_send_icon} alt='send' />
+              </div>
+            </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

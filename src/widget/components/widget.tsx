@@ -12,9 +12,13 @@ import {
 interface IWidget {
   setdisplayInView: (value: string) => void;
 }
+
+
+
 export function Widget(props: IWidget) {
   const { setdisplayInView } = props;
   const { isOpen, setIsOpen } = useContext(WidgetContext);
+ 
 
   if (!isOpen) {
     return (
@@ -35,7 +39,8 @@ export function Widget(props: IWidget) {
             <div className='nav-icon-container'>
               <img
                 onClick={() => {
-                  setIsOpen(false); setdisplayInView('home')
+                  setIsOpen(false);
+                  setdisplayInView('home');
                 }}
                 src={close_icon}
                 alt='navigation'
@@ -106,7 +111,7 @@ export function Widget(props: IWidget) {
             <span className='footer-text-home'>Chat</span>
           </div>
           <div className='footer-icon' onClick={() => setdisplayInView('chat')}>
-            <div className='footer-icon-container'>
+            <div className='footer-icon-container-chat'>
               <img src={message_icon} alt='chat' />
             </div>
             <span className='footer-text-chat'>Chat</span>
