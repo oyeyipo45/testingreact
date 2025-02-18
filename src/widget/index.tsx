@@ -38,6 +38,9 @@ function injectStyle(shadowRoot: HTMLElement) {
   link.rel = 'stylesheet';
   const fileName = process.env.WIDGET_NAME || 'widget';
   link.href = process.env.WIDGET_CSS_URL || `/${fileName}.css`;
+  const widgetContainer = document.querySelector('.widget-container');
+  widgetContainer?.classList.add('fullscreen'); 
+
   shadowRoot.appendChild(link);
 }
 

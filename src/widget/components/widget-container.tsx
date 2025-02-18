@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { WidgetContext } from '../lib/context';
 import { Widget } from './widget';
+import { Chat } from "./chat";
 
 interface WidgetContainerProps {
   clientKey: string;
@@ -9,6 +10,7 @@ interface WidgetContainerProps {
 export function WidgetContainer({ clientKey }: WidgetContainerProps) {
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [displayInView, setdisplayInView] = useState('home');
 
   useEffect(() => {
     setMounted(true);
@@ -20,7 +22,10 @@ export function WidgetContainer({ clientKey }: WidgetContainerProps) {
 
   return (
     <WidgetContext.Provider value={{ isOpen, setIsOpen, clientKey }}>
-      <Widget />
+      {displayInView === 'home' && (
+        <Widget setdisplayInView={setdisplayInView} />
+      )}
+      {displayInView === 'chat' && <Chat setdisplayInView={setdisplayInView} />}
     </WidgetContext.Provider>
   );
 }
