@@ -10,6 +10,7 @@ import injectProcessEnv from 'rollup-plugin-inject-process-env';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
 import postcss from 'rollup-plugin-postcss';
 import tsConfigPaths from 'rollup-plugin-tsconfig-paths';
+import svgr from 'vite-plugin-svgr';
 
 const args = parseArgs({
   options: {
@@ -105,6 +106,7 @@ export default {
         drop_debugger: true,
       },
       output: { quote_style: 1 },
-    })
+    }),
+    svgr()
   ],
 };
