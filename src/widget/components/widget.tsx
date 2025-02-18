@@ -86,7 +86,7 @@ export function Widget(props: IWidget) {
               </div>
             </div>
             <div className='chat-with-us'>
-              <span className='chat-question-text '>Chat with us</span>
+              <span className='chat-question-text'>Chat with us</span>
               <img
                 src={white_send_icon}
                 alt='send message'

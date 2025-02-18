@@ -212,7 +212,7 @@
   }
 
   .online-text {
-    @apply text-[#4C7B9A] font-bold tracking-[160%];
+    @apply text-[#4C7B9A] font-bold tracking-[1.5];
   }
 
   .widget-header {
@@ -284,7 +284,7 @@
   }
 
   .chat-question-text {
-    @apply text-white font-bold tracking-[160%];
+    @apply text-white font-bold tracking-[1.5];
   }
 
   .separator-container {
