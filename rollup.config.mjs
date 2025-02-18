@@ -197,6 +197,9 @@ export default {
       ],
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs'],
     }),
+    svgr({
+      icon:true
+    }),
     postcss({
       extensions: ['.css'],
       minimize: true,
@@ -222,6 +225,5 @@ export default {
       },
       output: { quote_style: 1 },
     }),
-    svgr(),
   ],
 };
