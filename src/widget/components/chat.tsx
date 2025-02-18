@@ -4,6 +4,7 @@ import {
   back_icon,
   close_icon,
   hamburger_icon,
+  message_regular,
   rotated_send_icon,
 } from '../../assets';
 
@@ -56,23 +57,14 @@ export function Chat(props: IChat) {
   if (!isOpen) {
     return (
       <button className='widget-button' onClick={() => setIsOpen(true)}>
-        Open Widget
+        <img
+          src={message_regular}
+          alt='open widget'
+          className='open-button-icon'
+        />
       </button>
     );
   }
-
-  const currentMessages = [
-    {
-      id: Math.random(),
-      content: 'Hello',
-      sender: 'user',
-    },
-    {
-      id: Math.random(),
-      content: 'How are you doing today',
-      sender: 'bot',
-    },
-  ];
 
   return (
     <div className='widget-container'>
@@ -83,24 +75,23 @@ export function Chat(props: IChat) {
             <span className='online-text'>Online</span>
           </div>
           <div className='widget-nav'>
-            <div className='nav-icon-container'>
-              <img
-                src={back_icon}
-                alt='back'
-                onClick={() => setdisplayInView('home')}
-              />
+            <div
+              className='nav-icon-container'
+              onClick={() => setdisplayInView('home')}
+            >
+              <img src={back_icon} alt='back' />
             </div>
 
             <div className='nav-icon-container'>
               <img src={hamburger_icon} alt='navigation' />
             </div>
 
-            <div className='nav-icon-container'>
-              <img
+            <div className='nav-icon-container' 
                 onClick={() => {
                   setIsOpen(false);
                   setdisplayInView('home');
-                }}
+                }}>
+              <img
                 src={close_icon}
                 alt='navigation'
               />

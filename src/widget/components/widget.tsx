@@ -6,6 +6,8 @@ import {
   hamburger_icon,
   home_icon,
   message_icon,
+  message_regular,
+  rotated_send_icon,
   white_send_icon,
 } from '../../assets';
 
@@ -13,17 +15,14 @@ interface IWidget {
   setdisplayInView: (value: string) => void;
 }
 
-
-
 export function Widget(props: IWidget) {
   const { setdisplayInView } = props;
   const { isOpen, setIsOpen } = useContext(WidgetContext);
- 
 
   if (!isOpen) {
     return (
       <button className='widget-button' onClick={() => setIsOpen(true)}>
-        Open Widget
+        <img src={rotated_send_icon} alt='open widget' />
       </button>
     );
   }
@@ -36,15 +35,14 @@ export function Widget(props: IWidget) {
             <div className='nav-icon-container'>
               <img src={hamburger_icon} alt='navigation' />
             </div>
-            <div className='nav-icon-container'>
-              <img
-                onClick={() => {
-                  setIsOpen(false);
-                  setdisplayInView('home');
-                }}
-                src={close_icon}
-                alt='navigation'
-              />
+            <div
+              className='nav-icon-container'
+              onClick={() => {
+                setIsOpen(false);
+                setdisplayInView('home');
+              }}
+            >
+              <img src={close_icon} alt='navigation' />
             </div>
           </div>
         </div>
