@@ -7,3 +7,5 @@ export { default as message_icon } from './message_icon.svg';
 export { default as back_icon } from './back_icon.svg';
 export { default as rotated_send_icon } from './rotated_send_icon.svg';
 export { default as message_regular } from './message_regular.svg';
+export { default as green_message_icon } from './green_message_icon.svg';
+export { default as person_icon } from './person_icon.svg';
