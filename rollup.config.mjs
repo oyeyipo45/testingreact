@@ -123,7 +123,8 @@ import injectProcessEnv from 'rollup-plugin-inject-process-env';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
 import postcss from 'rollup-plugin-postcss';
 import tsConfigPaths from 'rollup-plugin-tsconfig-paths';
-import svg from 'rollup-plugin-svg';
+import url from '@rollup/plugin-url'
+import svgr from '@svgr/rollup'
 
 const args = parseArgs({
   options: {
@@ -195,9 +196,7 @@ export default {
       ],
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs'],
     }),
-    svg({
-      stringify: true,
-    }),
+    url(), svgr({ icon: true }),
     postcss({
       extensions: ['.css'],
       minimize: true,
