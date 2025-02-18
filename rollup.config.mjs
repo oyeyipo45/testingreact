@@ -125,6 +125,7 @@ import postcss from 'rollup-plugin-postcss';
 import tsConfigPaths from 'rollup-plugin-tsconfig-paths';
 // import svgr from 'vite-plugin-svgr';
 import svg from 'rollup-plugin-svg';
+import svgr from '@svgr/rollup'
 
 const args = parseArgs({
   options: {
@@ -221,6 +222,6 @@ export default {
       },
       output: { quote_style: 1 },
     }),
-    svg(),
+    svgr(),
   ],
 };
