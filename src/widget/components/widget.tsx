@@ -6,7 +6,6 @@ import {
   hamburger_icon,
   home_icon,
   message_icon,
-  message_regular,
   rotated_send_icon,
   white_send_icon,
 } from '../../assets';

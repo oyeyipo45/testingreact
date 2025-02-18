@@ -26,7 +26,6 @@ export function Chat(props: IChat) {
 
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const messagesEndRef = useRef(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -86,15 +85,14 @@ export function Chat(props: IChat) {
               <img src={hamburger_icon} alt='navigation' />
             </div>
 
-            <div className='nav-icon-container' 
-                onClick={() => {
-                  setIsOpen(false);
-                  setdisplayInView('home');
-                }}>
-              <img
-                src={close_icon}
-                alt='navigation'
-              />
+            <div
+              className='nav-icon-container'
+              onClick={() => {
+                setIsOpen(false);
+                setdisplayInView('home');
+              }}
+            >
+              <img src={close_icon} alt='navigation' />
             </div>
           </div>
         </div>
