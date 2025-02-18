@@ -11,6 +11,12 @@ interface IChat {
   setdisplayInView: (value: string) => void;
 }
 
+interface IMessage {
+  sender: string;
+  content: string;
+  id: number;
+}
+
 export function Chat(props: IChat) {
   const { setdisplayInView } = props;
   const { isOpen, setIsOpen } = useContext(WidgetContext);
@@ -22,6 +28,19 @@ export function Chat(props: IChat) {
       </button>
     );
   }
+
+  const messages = [
+    {
+      id: Math.random(),
+      content: 'Hello',
+      sender: 'user',
+    },
+    {
+      id: Math.random(),
+      content: 'How are you doing today',
+      sender: 'bot',
+    },
+  ];
 
   return (
     <div className='widget-container'>
@@ -45,14 +64,32 @@ export function Chat(props: IChat) {
             />
           </div>
         </div>
-        <div></div>
+        <div className='messages-container'>
+          {messages.map((message: IMessage) => (
+            <div className='message' key={message.id}>
+              {' '}
+              {message.sender === 'user' && (
+                <div className='user-message-container'>
+                  <div className='user-message'> {message.content}</div>{' '}
+                </div>
+              )}
+              {message.sender === 'bot' && (
+                <div>
+                  <div className='bot-message-container'>
+                    <div className='bot-message'> {message.content}</div>{' '}
+                  </div>{' '}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
         <div className='separator-container'>
           <div className='separator' />
         </div>
       </div>
 
       <div className='footer'>
-        <input />
+        <input className='message-input' placeholder="Type here.." />
         <div className='send-message'>
           <div className='send-message-icon'>
             <img src={rotated_send_icon} alt='send' />
