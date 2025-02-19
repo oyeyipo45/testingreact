@@ -22,6 +22,58 @@
     shadow-xl z-[9999] flex flex-col;
   } */
 
+  /* Dropdown.css */
+.dropdown {
+  position: relative; /* Needed for absolute positioning of the menu */
+  display: inline-block; /* So it doesn't take full width */
+}
+
+.dropdown-toggle {
+  /* Style your toggle button/element as needed */
+  padding: 10px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%; /* Position below the toggle */
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-top: none; /* Remove top border */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  z-index: 10; /* Ensure it's above other content */
+  display: block; /* Important: Make it visible when open */
+  opacity: 0; /* Initially hidden */
+  pointer-events: none; /* Prevent interaction when hidden */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+  transform: translateY(-10px); /* Slide slightly up initially */
+}
+
+.dropdown:hover .dropdown-menu { /* Show on hover */
+  opacity: 1;
+  pointer-events: auto; /* Allow interaction */
+  transform: translateY(0); /* Slide down to position */
+}
+
+.dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0; /* Highlight on hover */
+}
+
+.dropdown-item a {
+  text-decoration: none;
+  color: inherit; /* Inherit color from parent */
+  display: block; /* Make <a> fill the <li> */
+}
+
   .widget-container {
     position: fixed;
     bottom: 20px;
@@ -40,7 +92,6 @@
       0 0 18px 8px rgba(0, 0, 0, 0.1),
       0 0 32px 32px rgba(0, 0, 0, 0.08);
     transition: max-height 3s ease;
-    
 
     /* overflow-y: auto;
     scrollbar-width: none;
@@ -49,7 +100,7 @@
   }
 
   .widget-container-body {
-    @apply flex-col flex-1 overflow-scroll;
+    @apply flex-col flex-1 flex h-full;
   }
 
   .widget-button {
@@ -62,7 +113,7 @@
   }
 
   .online-text {
-    @apply text-[#4C7B9A] font-bold tracking-[160%];
+    @apply text-[#4C7B9A] font-bold tracking-[1.6];
   }
 
   .widget-header {
@@ -134,7 +185,7 @@
   }
 
   .chat-question-text {
-    @apply text-white font-bold tracking-[160%];
+    @apply text-white font-bold tracking-[1.6];
   }
 
   .separator-container {
@@ -165,7 +216,7 @@
     @apply leading-[1.6] text-[10px] font-bold tracking-[0.2px] text-[#4C7B98];
   }
 
-   .send-message {
+  .send-message {
     @apply flex justify-center items-center bg-[#4C7B9A] rounded-full min-h-[60px] min-w-[60px] shadow-lg border-none hover:bg-[#264e69] hover:cursor-pointer;
   }
 
@@ -173,8 +224,21 @@
     @apply pt-2 pr-1 hover:cursor-pointer;
   }
 
+  .cover {
+    display: flex;
+    height: 100%;
+    overflow: auto;
+    flex-direction: column;
+  }
+
   .messages-container {
-    @apply p-6 flex flex-col gap-6;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 0.75rem;
+    overflow-y: auto;
+    padding: 1.5rem;
+    flex-shrink: 1;
   }
 
   .user-message-container {
@@ -193,7 +257,7 @@
     @apply flex max-w-[70%] p-4 bg-[#F5F5F5] rounded-[20px] text-[#212121];
   }
 
- .message-input-container {
+  .message-input-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -201,7 +265,7 @@
     border: 1px solid #4c7b9a;
     background-color: #f0f4f7;
     border-radius: 16px;
-    flex : 1
+    flex: 1;
   }
 
   .message-input-container:focus-within {
@@ -215,7 +279,7 @@
     padding: 20px;
     outline: none;
     border: none;
-    font-size: 14px
+    font-size: 14px;
   }
 
   .loading-container {
@@ -288,7 +352,6 @@
     visibility: hidden;
   }
 
-
   .name-modal-header {
     display: flex;
     justify-content: space-between;
@@ -359,7 +422,7 @@
     padding: 20px;
     outline: none;
     border: none;
-    font-size: 14px
+    font-size: 14px;
   }
 
   .close-name-modal {
@@ -398,7 +461,7 @@
   }
 
   .widget-container-body {
-    @apply flex-col flex-1 overflow-scroll scroll-smooth;
+    @apply flex-col flex-1;
   }
 
   .widget-button {
@@ -518,7 +581,7 @@
   }
 
   .messages-container {
-    @apply p-6 flex flex-col gap-6;
+    @apply p-6 flex flex-col gap-6 overflow-y-scroll no-scrollbar h-full;
   }
 
   .user-message-container {
@@ -546,7 +609,7 @@
     background-color: #f0f4f7;
     padding-right: 20px;
     border-radius: 16px;
-    flex : 1
+    flex: 1;
   }
 
   .message-input-container:focus-within {
@@ -560,9 +623,8 @@
     padding: 20px;
     outline: none;
     border: none;
-    font-size: 14px
+    font-size: 14px;
   }
-
 
   .loading-container {
     @apply flex justify-start items-start h-[40px];
@@ -605,7 +667,6 @@
       visibility 0.7s ease; /* Smooth transition */
     opacity: 1; /* Initially visible */
     visibility: visible; /* Initially visible */
-    
   }
 
   .modal-content {
@@ -704,7 +765,7 @@
     padding: 20px;
     outline: none;
     border: none;
-    font-size: 14px
+    font-size: 14px;
   }
 
   .close-name-modal {
@@ -749,6 +810,6 @@
   }
 
   .chat-question-text {
-    @apply text-[14px] text-white font-bold tracking-[160%];
+    @apply text-[14px] text-white font-bold tracking-[1.6];
   }
 }

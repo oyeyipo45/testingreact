@@ -63,25 +63,30 @@ export function Widget(props: IWidget) {
           </div>
           <div className='widget-question-section'>
             <div className='widget-question-top'>
-              <div className='product-question'>
+              <div
+                className='product-question'
+                onClick={() => setdisplayInView('chat')}
+              >
                 <span className='product-question-text '>
                   I have a question about a product
                 </span>
-                <img
-                  src={black_send_icon}
-                  alt='send message'
-                  onClick={() => setdisplayInView('chat')}
-                />
+                <div className='w-10 h-10'>
+                  <img src={black_send_icon} alt='send message' />
+                </div>
               </div>
-              <div className='product-question'>
+              <div
+                className='product-question'
+                onClick={() => setdisplayInView('chat')}
+              >
                 <span className='product-question-text '>
                   What is the status of my order?
                 </span>
-                <img
-                  src={black_send_icon}
-                  alt='send message'
-                  onClick={() => setdisplayInView('chat')}
-                />
+                <div className='w-10 h-10'>
+                  <img
+                    src={black_send_icon}
+                    alt='send message'
+                  />
+                </div>
               </div>
             </div>
             <div className='chat-with-us'>

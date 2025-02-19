@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { WidgetContext } from '../lib/context';
 import {
   back_icon,
@@ -21,6 +21,12 @@ interface IMessage {
   id: number;
 }
 
+interface IUser {
+  email: string;
+  name: string;
+}
+
+const BASE_URL = 'https://authenteak-backend.contextdata.dev';
 export function Chat(props: IChat) {
   const { setdisplayInView } = props;
   const { isOpen, setIsOpen } = useContext(WidgetContext);
@@ -34,11 +40,39 @@ export function Chat(props: IChat) {
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  const [session_id, setSession_id] = useState('');
+
+  const sendMessage = async (data: IUser) => {
+    const { email, name } = data;
+    try {
+      const response = await fetch(`${BASE_URL}/chats/messages`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          //   Authorization: `Bearer ${TOKEN}`,
+        },
+        body: JSON.stringify({ email, name }),
+      });
+
+      if (!response.ok) {
+        throw new Error('API request failed');
+      }
+
+      const data = await response.json();
+      console.log(data, 'data');
+
+      return data; // Adjust based on your API response structure
+    } catch (error) {
+      console.error('Error sending message:', error);
+      return 'Sorry, there was an error processing your request.';
+    }
+  };
+
   useEffect(() => {
     setIsNameModalOpen(true);
   }, [firstName]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputText.trim() === '' || isLoading) return;
 
@@ -53,15 +87,37 @@ export function Chat(props: IChat) {
     setInputText('');
     setIsLoading(true);
 
-    setTimeout(() => {
-      setIsLoading(false);
-      const botMessage = {
-        id: Math.random(),
-        content: 'How are you doing today ?',
-        sender: 'bot',
-      };
-      setMessages((prev: IMessage[]) => [...prev, botMessage]);
-    }, 500);
+    try {
+      const response = await fetch(`${BASE_URL}/chats/messages`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: inputText }),
+      });
+
+      if (!response.ok) {
+        throw new Error('API request failed');
+      }
+
+      const data = await response.json();
+      console.log(data, 'data');
+
+      return data; // Adjust based on your API response structure
+    } catch (error) {
+      console.error('Error sending message:', error);
+      return 'Sorry, there was an error processing your request.';
+    }
+
+    // setTimeout(() => {
+    //   setIsLoading(false);
+    //   const botMessage = {
+    //     id: Math.random(),
+    //     content: 'How are you doing today ?',
+    //     sender: 'bot',
+    //   };
+    //   setMessages((prev: IMessage[]) => [...prev, botMessage]);
+    // }, 500);
   };
 
   console.log(isNameModalOpen, 'isNameModalOpen');
@@ -69,6 +125,33 @@ export function Chat(props: IChat) {
   const toggleModal = () => {
     setIsNameModalOpen(!isNameModalOpen);
   };
+
+  const [isMoadalOpen, setModalIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseEnter = () => {
+    setIsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   if (!isOpen) {
     return (
@@ -82,6 +165,19 @@ export function Chat(props: IChat) {
     );
   }
 
+
+  interface IOptions {
+    href: string;
+    label: string;
+  }
+
+  const options = [
+    {
+      href: 'string',
+      label: 'string',
+    },
+    { href: 'Efwfwf', label: 'wfwfw' },
+  ];
   return (
     <div className='widget-container'>
       <div className='widget-container-body'>
@@ -96,6 +192,25 @@ export function Chat(props: IChat) {
               onClick={() => setdisplayInView('home')}
             >
               <img src={back_icon} alt='back' />
+            </div>
+
+            <div
+              className='dropdown'
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              ref={dropdownRef} // Ref for outside click detection
+            >
+              <button className='dropdown-toggle'>Dropdown</button>{' '}
+              {/* Or any element to trigger it */}
+              {isOpen && (
+                <ul className='dropdown-menu'>
+                  {options?.map((option: IOptions, index: number) => (
+                    <li key={index} className='dropdown-item'>
+                      <a href={option?.href || '#'}>{option?.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
 
             <div className='nav-icon-container'>
@@ -113,35 +228,38 @@ export function Chat(props: IChat) {
             </div>
           </div>
         </div>
-        <div className='messages-container'>
-          {messages.map((message: IMessage) => (
-            <div className='message' key={message.id}>
-              {' '}
-              {message.sender === 'user' && (
-                <div className='user-message-container'>
-                  <div className='user-message'> {message.content}</div>{' '}
-                </div>
-              )}
-              {message.sender === 'bot' && (
-                <div>
-                  <div className='bot-message-container'>
-                    <div className='bot-message'> {message.content}</div>{' '}
-                  </div>{' '}
-                </div>
-              )}
-            </div>
-          ))}
-          {isLoading && (
-            <div className='loading-container'>
-              <div className='loading-inner-container'>
-                <div className='message-indicator'>
-                  <div className='line'></div>
-                  <div className='line'></div>
-                  <div className='line'></div>
+
+        <div className='cover'>
+          <div className='messages-container'>
+            {messages.map((message: IMessage) => (
+              <div className='message-inners' key={message.id}>
+                {' '}
+                {message.sender === 'user' && (
+                  <div className='user-message-container'>
+                    <div className='user-message'> {message.content}</div>{' '}
+                  </div>
+                )}
+                {message.sender === 'bot' && (
+                  <div>
+                    <div className='bot-message-container'>
+                      <div className='bot-message'> {message.content}</div>{' '}
+                    </div>{' '}
+                  </div>
+                )}
+              </div>
+            ))}
+            {isLoading && (
+              <div className='loading-container'>
+                <div className='loading-inner-container'>
+                  <div className='message-indicator'>
+                    <div className='line'></div>
+                    <div className='line'></div>
+                    <div className='line'></div>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
 
