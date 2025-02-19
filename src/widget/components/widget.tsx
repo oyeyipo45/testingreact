@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { WidgetContext } from '../lib/context';
 import {
   black_send_icon,
@@ -18,21 +18,85 @@ export function Widget(props: IWidget) {
   const { setdisplayInView } = props;
   const { isOpen, setIsOpen } = useContext(WidgetContext);
 
-  if (!isOpen) {
-    return (
-      <button className='widget-button' onClick={() => setIsOpen(true)}>
-        <img src={rotated_send_icon} alt='open widget' />
-      </button>
-    );
+ 
+
+    const [isMoadalOpen, setModalIsOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+  
+    const handleMouseEnter = () => {
+      setModalIsOpen(true);
+    };
+  
+    const handleMouseLeave = () => {
+      setModalIsOpen(false);
+    };
+  
+    useEffect(() => {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (
+          dropdownRef.current &&
+          !dropdownRef.current.contains(event.target as Node)
+        ) {
+          setModalIsOpen(false);
+        }
+      };
+  
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, []);
+
+
+  interface IOptions {
+    value: string;
+    key: string;
   }
 
+  const options = [
+    {
+      value: 'Turn off notification',
+      key: 'notification',
+    },
+    { value: 'Rate your experience', key: 'experience' },
+
+  ]
+
+   if (!isOpen) {
+     return (
+       <button className='widget-button' onClick={() => setIsOpen(true)}>
+         <img src={rotated_send_icon} alt='open widget' />
+       </button>
+     );
+   }
+
+  
+  
   return (
     <div className='widget-container'>
       <div className='widget-container-body'>
         <div className='widget-header'>
           <div className='widget-nav'>
-            <div className='nav-icon-container'>
-              <img src={hamburger_icon} alt='navigation' />
+            <div
+              className='dropdown'
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              ref={dropdownRef}
+            >
+              <div>
+                <div className='nav-icon-container'>
+                  <img src={hamburger_icon} alt='navigation' />
+                </div>
+                {isOpen && (
+                  <ul className='dropdown-menu'>
+                    {options?.map((option: IOptions, index: number) => (
+                      <li key={index} className='dropdown-item'>
+                        <a className='dropdown-text'>{option?.value}</a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </div>
             <div
               className='nav-icon-container'
@@ -82,10 +146,7 @@ export function Widget(props: IWidget) {
                   What is the status of my order?
                 </span>
                 <div className='w-10 h-10'>
-                  <img
-                    src={black_send_icon}
-                    alt='send message'
-                  />
+                  <img src={black_send_icon} alt='send message' />
                 </div>
               </div>
             </div>

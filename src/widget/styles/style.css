@@ -23,56 +23,68 @@
   } */
 
   /* Dropdown.css */
-.dropdown {
-  position: relative; /* Needed for absolute positioning of the menu */
-  display: inline-block; /* So it doesn't take full width */
-}
+  .dropdown {
+    position: relative; /* Needed for absolute positioning of the menu */
+    display: inline-block; /* So it doesn't take full width */
+  }
 
-.dropdown-toggle {
-  /* Style your toggle button/element as needed */
-  padding: 10px;
-  border: 1px solid #ccc;
-  cursor: pointer;
-}
+  .dropdown-toggle {
+    /* Style your toggle button/element as needed */
+    padding: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
 
-.dropdown-menu {
-  position: absolute;
-  top: 100%; /* Position below the toggle */
-  left: 0;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-top: none; /* Remove top border */
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  z-index: 10; /* Ensure it's above other content */
-  display: block; /* Important: Make it visible when open */
-  opacity: 0; /* Initially hidden */
-  pointer-events: none; /* Prevent interaction when hidden */
-  transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transitions */
-  transform: translateY(-10px); /* Slide slightly up initially */
-}
+  .dropdown-menu {
+    position: absolute;
+    top: 100%; /* Position below the toggle */
+    right: 0;
+    width: 190px;
+    top : 8;
+    background-color: white;
+    border-top: none; /* Remove top border */
+    margin: 4 0 0 0;
+    border-radius: 12px;
+    padding: 0;
+    list-style: none;
+    z-index: 10; /* Ensure it's above other content */
+    display: block; /* Important: Make it visible when open */
+    opacity: 0; /* Initially hidden */
+    pointer-events: none; /* Prevent interaction when hidden */
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease; /* Smooth transitions */
+    transform: translateY(-10px);
+    border: 1px solid #4c7b9a; /* Slide slightly up initially */
+  }
 
-.dropdown:hover .dropdown-menu { /* Show on hover */
-  opacity: 1;
-  pointer-events: auto; /* Allow interaction */
-  transform: translateY(0); /* Slide down to position */
-}
+  .dropdown:hover .dropdown-menu {
+    /* Show on hover */
+    opacity: 1;
+    pointer-events: auto; /* Allow interaction */
+    transform: translateY(0); /* Slide down to position */
+  }
 
-.dropdown-item {
-  padding: 10px;
-  cursor: pointer;
-}
+  .dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+  }
 
-.dropdown-item:hover {
-  background-color: #f0f0f0; /* Highlight on hover */
-}
+  .dropdown-item:hover {
+    background-color: #f0f0f0; /* Highlight on hover */
+  }
 
-.dropdown-item a {
-  text-decoration: none;
-  color: inherit; /* Inherit color from parent */
-  display: block; /* Make <a> fill the <li> */
-}
+  .dropdown-item a {
+    text-decoration: underline;
+    color: #4c7b9a;
+    font-weight: 400;
+    display: block; /* Make <a> fill the <li> */
+  }
+
+  .dropdown-text {
+    color: #4c7b9a;
+    font-weight: 400;
+  }
 
   .widget-container {
     position: fixed;

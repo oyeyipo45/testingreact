@@ -87,37 +87,37 @@ export function Chat(props: IChat) {
     setInputText('');
     setIsLoading(true);
 
-    try {
-      const response = await fetch(`${BASE_URL}/chats/messages`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message: inputText }),
-      });
+    // try {
+    //   const response = await fetch(`${BASE_URL}/chats/messages`, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ message: inputText }),
+    //   });
 
-      if (!response.ok) {
-        throw new Error('API request failed');
-      }
+    //   if (!response.ok) {
+    //     throw new Error('API request failed');
+    //   }
 
-      const data = await response.json();
-      console.log(data, 'data');
+    //   const data = await response.json();
+    //   console.log(data, 'data');
 
-      return data; // Adjust based on your API response structure
-    } catch (error) {
-      console.error('Error sending message:', error);
-      return 'Sorry, there was an error processing your request.';
-    }
+    //   return data; // Adjust based on your API response structure
+    // } catch (error) {
+    //   console.error('Error sending message:', error);
+    //   return 'Sorry, there was an error processing your request.';
+    // }
 
-    // setTimeout(() => {
-    //   setIsLoading(false);
-    //   const botMessage = {
-    //     id: Math.random(),
-    //     content: 'How are you doing today ?',
-    //     sender: 'bot',
-    //   };
-    //   setMessages((prev: IMessage[]) => [...prev, botMessage]);
-    // }, 500);
+    setTimeout(() => {
+      setIsLoading(false);
+      const botMessage = {
+        id: Math.random(),
+        content: 'How are you doing today ?',
+        sender: 'bot',
+      };
+      setMessages((prev: IMessage[]) => [...prev, botMessage]);
+    }, 500);
   };
 
   console.log(isNameModalOpen, 'isNameModalOpen');
@@ -130,11 +130,11 @@ export function Chat(props: IChat) {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleMouseEnter = () => {
-    setIsOpen(true);
+    setModalIsOpen(true);
   };
 
   const handleMouseLeave = () => {
-    setIsOpen(false);
+    setModalIsOpen(false);
   };
 
   useEffect(() => {
@@ -143,7 +143,7 @@ export function Chat(props: IChat) {
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
       ) {
-        setIsOpen(false);
+        setModalIsOpen(false);
       }
     };
 
@@ -167,16 +167,16 @@ export function Chat(props: IChat) {
 
 
   interface IOptions {
-    href: string;
-    label: string;
+    value: string;
+    key: string;
   }
 
   const options = [
     {
-      href: 'string',
-      label: 'string',
+      value: 'Turn off notification',
+      key: 'notification',
     },
-    { href: 'Efwfwf', label: 'wfwfw' },
+    { value: 'Rate your experience', key: 'experience' },
   ];
   return (
     <div className='widget-container'>
@@ -198,23 +198,20 @@ export function Chat(props: IChat) {
               className='dropdown'
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              ref={dropdownRef} // Ref for outside click detection
+              ref={dropdownRef}
             >
-              <button className='dropdown-toggle'>Dropdown</button>{' '}
-              {/* Or any element to trigger it */}
+              <div className='nav-icon-container'>
+                <img src={hamburger_icon} alt='navigation' />
+              </div>
               {isOpen && (
                 <ul className='dropdown-menu'>
                   {options?.map((option: IOptions, index: number) => (
                     <li key={index} className='dropdown-item'>
-                      <a href={option?.href || '#'}>{option?.label}</a>
+                      <a className='dropdown-text'>{option?.value}</a>
                     </li>
                   ))}
                 </ul>
               )}
-            </div>
-
-            <div className='nav-icon-container'>
-              <img src={hamburger_icon} alt='navigation' />
             </div>
 
             <div
