@@ -38,6 +38,7 @@
 
 .dropdown-item {
   padding: 10px;
+  margin: 4px;
   cursor: pointer;
 }
 
@@ -58,12 +59,11 @@
   font-weight: 400;
 }
 
-
 .dropdown-menu {
   position: absolute;
   right: 0;
   width: 190px;
-  top : 0;
+  top: 0;
   background-color: white;
   border-top: none; /* Remove top border */
   margin: 4px 0 0 0;
@@ -75,19 +75,17 @@
   opacity: 0; /* Initially hidden */
   pointer-events: none; /* Prevent interaction when hidden */
   transition:
-          opacity 0.3s ease,
-          transform 0.3s ease; /* Smooth transitions */
+    opacity 0.3s ease,
+    transform 0.3s ease; /* Smooth transitions */
   transform: translateY(-10px);
   border: 1px solid #4c7b9a; /* Slide slightly up initially */
 }
-
 
 @media only screen and (min-width: 768px) {
   /* .widget-container {
     @apply fixed bottom-5 right-5 w-[400px] h-[803px] bg-white border border-gray-200 rounded-lg 
     shadow-xl z-[9999] flex flex-col;
   } */
-
 
   .widget-container {
     position: fixed;
@@ -139,7 +137,7 @@
     @apply flex justify-between p-6;
   }
 
-  .header-component-position{
+  .header-component-position {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -205,8 +203,29 @@
     @apply my-2 p-6 bg-[#4C7B98] rounded-[20px] flex justify-between hover:bg-[#1a5270] hover:cursor-pointer;
   }
 
+   .speak-with-agent {
+    padding: 20px;
+    margin: 4px;
+    background-color: #f0f4f7;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #4c7b9a;
+  }
+
+  .speak-with-agent:hover {
+    background-color: #edf7fe;
+    cursor: pointer;
+  }
+
   .chat-question-text {
     @apply text-white font-bold tracking-[1.6];
+  }
+
+  .agent-question-text {
+    @apply text-[#4C7B98] font-bold tracking-[1.6];
   }
 
   .separator-container {
@@ -344,15 +363,21 @@
       visibility 0.7s ease; /* Smooth transition */
     opacity: 1; /* Initially visible */
     visibility: visible; /* Initially visible */
-    border-radius: 16px;
+
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
   }
 
   .modal-content {
     background-color: white;
     width: 100%;
     padding: 20px;
-    border-top-left-radius: 36px;
-    border-top-right-radius: 36px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+     border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
     transform: translateY(100%); /* Initially hidden below the viewport */
     transition: transform 0.7s ease-in-out; /* Smooth transition for sliding up */
   }
@@ -566,8 +591,29 @@
     @apply my-6 p-5 bg-[#4C7B98] rounded-[20px] flex justify-between hover:bg-[#1a5270] hover:cursor-pointer;
   }
 
+  .speak-with-agent {
+    padding: 20px;
+    margin: 4px;
+    background-color: #f0f4f7;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #4c7b9a;
+  }
+
+  .speak-with-agent:hover {
+    background-color: #edf7fe;
+    cursor: pointer;
+  }
+
   .chat-question-text {
     @apply text-white font-bold tracking-[1.5];
+  }
+
+  .agent-question-text {
+    @apply text-[#4C7B98] font-bold tracking-[1.6];
   }
 
   .separator-container {
@@ -832,6 +878,10 @@
   }
 
   .chat-with-us {
+    @apply my-3 p-4;
+  }
+
+  .speak-with-agent {
     @apply my-3 p-4;
   }
 

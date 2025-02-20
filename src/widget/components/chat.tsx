@@ -4,12 +4,14 @@ import {
   back_icon,
   close_icon,
   green_message_icon,
+  green_send_icon,
   hamburger_icon,
   message_regular,
   person_icon,
   rotated_send_icon,
   white_send_icon,
 } from '../../assets';
+import axios from 'axios';
 
 interface IChat {
   setdisplayInView: (value: string) => void;
@@ -33,8 +35,8 @@ export function Chat(props: IChat) {
 
   const [messages, setMessages] = useState<IMessage[]>([]);
 
-  const [firstName, setFirstName] = useState<string>('');
-  const [lastName, setLastName] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   const [isNameModalOpen, setIsNameModalOpen] = useState(false);
 
   const [inputText, setInputText] = useState('');
@@ -44,24 +46,32 @@ export function Chat(props: IChat) {
 
   const sendMessage = async (data: IUser) => {
     const { email, name } = data;
+
     try {
-      const response = await fetch(`${BASE_URL}/chats/messages`, {
+      //   const response = await fetch(`${BASE_URL}/users`, {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       //   Authorization: `Bearer ${TOKEN}`,
+      //     },
+      //     body: JSON.stringify({ email, name }),
+      //   });
+
+      //   if (!response.ok) {
+      //     throw new Error('API request failed');
+      //   }
+
+      //   const data = await response.json();
+
+      const res = await axios({
+        url: `${BASE_URL}/users`,
+        data: { ...data },
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          //   Authorization: `Bearer ${TOKEN}`,
-        },
-        body: JSON.stringify({ email, name }),
       });
 
-      if (!response.ok) {
-        throw new Error('API request failed');
-      }
+      console.log(res.data, 'data');
 
-      const data = await response.json();
-      console.log(data, 'data');
-
-      return data; // Adjust based on your API response structure
+      return res.data;
     } catch (error) {
       console.error('Error sending message:', error);
       return 'Sorry, there was an error processing your request.';
@@ -70,7 +80,7 @@ export function Chat(props: IChat) {
 
   useEffect(() => {
     setIsNameModalOpen(true);
-  }, [firstName]);
+  }, [name]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -87,27 +97,27 @@ export function Chat(props: IChat) {
     setInputText('');
     setIsLoading(true);
 
-    // try {
-    //   const response = await fetch(`${BASE_URL}/chats/messages`, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({ message: inputText }),
-    //   });
+    try {
+      const response = await fetch(`${BASE_URL}/chats/messages`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: inputText }),
+      });
 
-    //   if (!response.ok) {
-    //     throw new Error('API request failed');
-    //   }
+      if (!response.ok) {
+        throw new Error('API request failed');
+      }
 
-    //   const data = await response.json();
-    //   console.log(data, 'data');
+      const data = await response.json();
+      console.log(data, 'data');
 
-    //   return data; // Adjust based on your API response structure
-    // } catch (error) {
-    //   console.error('Error sending message:', error);
-    //   return 'Sorry, there was an error processing your request.';
-    // }
+      return data; // Adjust based on your API response structure
+    } catch (error) {
+      console.error('Error sending message:', error);
+      return 'Sorry, there was an error processing your request.';
+    }
 
     setTimeout(() => {
       setIsLoading(false);
@@ -119,8 +129,6 @@ export function Chat(props: IChat) {
       setMessages((prev: IMessage[]) => [...prev, botMessage]);
     }, 500);
   };
-
-  console.log(isNameModalOpen, 'isNameModalOpen');
 
   const toggleModal = () => {
     setIsNameModalOpen(!isNameModalOpen);
@@ -309,16 +317,20 @@ export function Chat(props: IChat) {
               <div className='input-text-container'>
                 <div className='name-input-container'>
                   <input
+                    type='text'
                     placeholder='Enter your name'
                     className='name-input-container-text'
+                    onChange={(e) => setName(e.target.value)}
                   />
                   <img src={person_icon} alt='name' />
                 </div>
 
                 <div className='name-input-container'>
                   <input
+                    type='email'
                     placeholder='Enter your email'
                     className='name-input-container-text'
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <img src={green_message_icon} alt='email' />
                 </div>
@@ -331,12 +343,23 @@ export function Chat(props: IChat) {
                 </span>
               </div>
 
-              <div className='chat-with-us'>
+              <div
+                className='chat-with-us'
+                onClick={() => sendMessage({ email, name })}
+              >
                 <span className='chat-question-text'>Chat with us</span>
                 <img
                   src={white_send_icon}
                   alt='send message'
-                  onClick={() => setdisplayInView('chat')}
+                  //   onClick={() => setdisplayInView('chat')}
+                />
+              </div>
+              <div className='speak-with-agent'>
+                <span className='agent-question-text'>Speak to an agent</span>
+                <img
+                  src={green_send_icon}
+                  alt='send message'
+                  //   onClick={() => setdisplayInView('chat')}
                 />
               </div>
             </div>
