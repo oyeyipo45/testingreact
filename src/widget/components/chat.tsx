@@ -165,7 +165,6 @@ export function Chat(props: IChat) {
     );
   }
 
-
   interface IOptions {
     value: string;
     key: string;

@@ -77,25 +77,27 @@ export function Widget(props: IWidget) {
       <div className='widget-container-body'>
         <div className='widget-header'>
           <div className='widget-nav'>
-            <div
-              className='dropdown'
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              ref={dropdownRef}
-            >
-              <div>
-                <div className='nav-icon-container'>
-                  <img src={hamburger_icon} alt='navigation' />
+            <div className="header-component-position">
+              <div
+                className='dropdown'
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                ref={dropdownRef}
+              >
+                <div>
+                  <div className='nav-icon-container'>
+                    <img src={hamburger_icon} alt='navigation' />
+                  </div>
+                  {isOpen && (
+                    <ul className='dropdown-menu'>
+                      {options?.map((option: IOptions, index: number) => (
+                        <li key={index} className='dropdown-item'>
+                          <a className='dropdown-text'>{option?.value}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
-                {isOpen && (
-                  <ul className='dropdown-menu'>
-                    {options?.map((option: IOptions, index: number) => (
-                      <li key={index} className='dropdown-item'>
-                        <a className='dropdown-text'>{option?.value}</a>
-                      </li>
-                    ))}
-                  </ul>
-                )}
               </div>
             </div>
             <div

@@ -92,7 +92,7 @@
     bottom: 20px;
     right: 20px;
     width: 400px;
-    height: 803px;
+    height: 750px;
     background: white;
     z-index: 9999;
     box-sizing: border-box;
@@ -194,7 +194,7 @@
   }
 
   .chat-with-us {
-    @apply my-6 p-6 bg-[#4C7B98] rounded-[20px] flex justify-between hover:bg-[#1a5270] hover:cursor-pointer;
+    @apply my-2 p-6 bg-[#4C7B98] rounded-[20px] flex justify-between hover:bg-[#1a5270] hover:cursor-pointer;
   }
 
   .chat-question-text {
@@ -210,11 +210,11 @@
   }
 
   .footer {
-    @apply flex px-6 py-6 items-center gap-5;
+    @apply flex px-6 py-4 items-center gap-5;
   }
 
   .footer-icon {
-    @apply w-full py-3 flex justify-center items-center flex-col gap-2 rounded-xl hover:cursor-pointer;
+    @apply w-full py-2 flex justify-center items-center flex-col gap-2 rounded-xl hover:cursor-pointer;
   }
 
   .footer-icon-container-chat {
