@@ -82,6 +82,7 @@ export function Widget(props: IWidget) {
                 className='dropdown'
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
+                onClick={handleMouseEnter}
                 ref={dropdownRef}
               >
                 <div>

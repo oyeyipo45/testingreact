@@ -16,76 +16,78 @@
   scrollbar-width: none; /* Firefox */
 }
 
+/* Dropdown.css */
+.dropdown {
+  position: relative; /* Needed for absolute positioning of the menu */
+  display: inline-block; /* So it doesn't take full width */
+}
+
+.dropdown-toggle {
+  /* Style your toggle button/element as needed */
+  padding: 10px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.dropdown:hover .dropdown-menu {
+  /* Show on hover */
+  opacity: 1;
+  pointer-events: auto; /* Allow interaction */
+  transform: translateY(0); /* Slide down to position */
+}
+
+.dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+  border-radius: 12px; /* Highlight on hover */
+}
+
+.dropdown-item a {
+  text-decoration: underline;
+  color: #4c7b9a;
+  font-weight: 400;
+  display: block; /* Make <a> fill the <li> */
+}
+
+.dropdown-text {
+  color: #4c7b9a;
+  font-weight: 400;
+}
+
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  width: 190px;
+  top : 0;
+  background-color: white;
+  border-top: none; /* Remove top border */
+  margin: 4px 0 0 0;
+  border-radius: 12px;
+  padding: 0;
+  list-style: none;
+  z-index: 10; /* Ensure it's above other content */
+  display: block; /* Important: Make it visible when open */
+  opacity: 0; /* Initially hidden */
+  pointer-events: none; /* Prevent interaction when hidden */
+  transition:
+          opacity 0.3s ease,
+          transform 0.3s ease; /* Smooth transitions */
+  transform: translateY(-10px);
+  border: 1px solid #4c7b9a; /* Slide slightly up initially */
+}
+
+
 @media only screen and (min-width: 768px) {
   /* .widget-container {
     @apply fixed bottom-5 right-5 w-[400px] h-[803px] bg-white border border-gray-200 rounded-lg 
     shadow-xl z-[9999] flex flex-col;
   } */
 
-  /* Dropdown.css */
-  .dropdown {
-    position: relative; /* Needed for absolute positioning of the menu */
-    display: inline-block; /* So it doesn't take full width */
-  }
-
-  .dropdown-toggle {
-    /* Style your toggle button/element as needed */
-    padding: 10px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-  }
-
-  .dropdown-menu {
-    position: absolute;
-    top: 100%; /* Position below the toggle */
-    right: 0;
-    width: 190px;
-    top : 0;
-    background-color: white;
-    border-top: none; /* Remove top border */
-    margin: 4 0 0 0;
-    border-radius: 12px;
-    padding: 0;
-    list-style: none;
-    z-index: 10; /* Ensure it's above other content */
-    display: block; /* Important: Make it visible when open */
-    opacity: 0; /* Initially hidden */
-    pointer-events: none; /* Prevent interaction when hidden */
-    transition:
-      opacity 0.3s ease,
-      transform 0.3s ease; /* Smooth transitions */
-    transform: translateY(-10px);
-    border: 1px solid #4c7b9a; /* Slide slightly up initially */
-  }
-
-  .dropdown:hover .dropdown-menu {
-    /* Show on hover */
-    opacity: 1;
-    pointer-events: auto; /* Allow interaction */
-    transform: translateY(0); /* Slide down to position */
-  }
-
-  .dropdown-item {
-    padding: 10px;
-    cursor: pointer;
-  }
-
-  .dropdown-item:hover {
-    background-color: #f0f0f0;
-    border-radius: 12px; /* Highlight on hover */
-  }
-
-  .dropdown-item a {
-    text-decoration: underline;
-    color: #4c7b9a;
-    font-weight: 400;
-    display: block; /* Make <a> fill the <li> */
-  }
-
-  .dropdown-text {
-    color: #4c7b9a;
-    font-weight: 400;
-  }
 
   .widget-container {
     position: fixed;
@@ -113,7 +115,7 @@
   }
 
   .widget-container-body {
-    @apply flex-col flex-1 flex h-full;
+    @apply flex-col flex-1 flex overflow-hidden;
   }
 
   .widget-button {
@@ -245,9 +247,9 @@
 
   .cover {
     display: flex;
-    height: 100%;
     overflow: auto;
     flex-direction: column;
+    flex: 1;
   }
 
   .messages-container {
@@ -480,9 +482,14 @@
   }
 
   .widget-container-body {
-    @apply flex-col flex-1;
+    @apply flex-col flex-1 flex overflow-hidden;
   }
-
+  .cover {
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    flex: 1;
+  }
   .widget-button {
     @apply fixed bottom-5 right-5 px-4 py-3.5 mt-1 bg-[#4C7B98] text-white border-none rounded-full cursor-pointer z-[9999];
   }
