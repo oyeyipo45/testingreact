@@ -93,7 +93,7 @@
     right: 20px;
     width: 400px;
     height: auto;
-    min-height:calc(100vh - 150px);
+    min-height: calc(100vh - 150px);
     max-height: calc(100vh - 50px);
     background: white;
     z-index: 9999;
@@ -114,8 +114,8 @@
     -webkit-scrollbar : none; */
   }
 
-   .footer-icon-image {
-    color: red
+  .footer-icon-image {
+    color: red;
   }
 
   .widget-container-body {
@@ -206,10 +206,10 @@
   }
 
   .chat-with-us {
-    @apply my-2 p-5 bg-[#4C7B98] rounded-[20px] flex justify-between hover:bg-[#1a5270] hover:cursor-pointer;
+    @apply w-full border-none my-2 p-5 bg-[#4C7B98] rounded-[20px] flex justify-between hover:bg-[#1a5270] hover:cursor-pointer items-center;
   }
 
-   .speak-with-agent {
+  .speak-with-agent {
     padding: 20px;
     margin: 4px;
     background-color: #f0f4f7;
@@ -227,7 +227,7 @@
   }
 
   .chat-question-text {
-    @apply text-white font-bold tracking-[1.6];
+    @apply text-white text-base font-bold tracking-[1.6];
   }
 
   .agent-question-text {
@@ -246,6 +246,9 @@
     @apply flex px-6 py-4 items-center gap-1;
   }
 
+  .footer-chat {
+    @apply flex px-6 py-4 items-center gap-2;
+  }
 
   .footer-icon {
     @apply w-full py-2 flex justify-center items-center flex-col rounded-xl hover:cursor-pointer  hover:bg-[#dee9ef];
@@ -256,7 +259,7 @@
   }
 
   .footer-text-home {
-    @apply mt-1 leading-[1.6] text-[10px] font-bold tracking-[0.2px] ;
+    @apply mt-1 leading-[1.6] text-[10px] font-bold tracking-[0.2px];
   }
 
   .send-message {
@@ -379,7 +382,7 @@
     padding: 20px;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
-     border-bottom-left-radius: 16px;
+    border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
     transform: translateY(100%); /* Initially hidden below the viewport */
     transition: transform 0.7s ease-in-out; /* Smooth transition for sliding up */
@@ -462,6 +465,21 @@
 
   .name-input-container:focus-within {
     outline: 1px solid #39759d;
+  }
+
+  .email-text-error {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #a60e11;
+    background-color: #f0f4f7;
+    padding-right: 20px;
+    border-radius: 16px;
+  }
+
+  .email-text-error:focus-within {
+    outline: 1px solid #a60e11;
   }
 
   .name-input-container-text {
@@ -594,6 +612,12 @@
     @apply my-6 p-5 bg-[#4C7B98] rounded-[20px] flex justify-between hover:bg-[#1a5270] hover:cursor-pointer;
   }
 
+  .chat-with-us .disabled {
+    pointer-events: none;
+    opacity: 0.7;
+    cursor: default;
+  }
+
   .speak-with-agent {
     padding: 20px;
     margin: 4px;
@@ -632,7 +656,7 @@
   }
 
   .footer-icon {
-    @apply w-full h-[32px] flex justify-center items-center flex-col 
+    @apply w-full h-[32px] flex justify-center items-center flex-col;
   }
 
   .footer-icon-container {
@@ -644,7 +668,7 @@
   }
 
   .footer-icon-image:hover {
-    color: red
+    color: red;
   }
 
   .footer-text-chat {

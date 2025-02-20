@@ -180,13 +180,14 @@ export function Widget(props: IWidget) {
                 </div>
               </div>
             </div>
-            <div className='chat-with-us'>
-              <span className='chat-question-text'>Chat with us</span>
-              <img
-                src={white_send_icon}
-                alt='send message'
+            <div>
+              <button
+                className='chat-with-us'
                 onClick={() => setdisplayInView('chat')}
-              />
+              >
+                <span className='chat-question-text'>Chat with us</span>
+                <img src={white_send_icon} alt='send message' />
+              </button>
             </div>
           </div>
         </div>
@@ -204,7 +205,6 @@ export function Widget(props: IWidget) {
             onClick={() => setActiveTab(IHomeComponents.HOME)}
           >
             <div>
-              {/* <img src={home_icon} alt='home' className='footer-icon-image' /> */}
               <FontAwesomeIcon icon={faHouse} color={homeColor} fontSize={28} />
             </div>
             <span className='footer-text-home' style={{ color: homeColor }}>
@@ -221,11 +221,6 @@ export function Widget(props: IWidget) {
             }}
           >
             <div className=''>
-              {/* <img
-                src={message_icon}
-                alt='chat'
-                className='footer-icon-image'
-              /> */}
               <FontAwesomeIcon
                 icon={faComment}
                 color={chatColor}
