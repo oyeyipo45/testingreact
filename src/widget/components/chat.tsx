@@ -11,6 +11,7 @@ import {
   rotated_send_icon,
   white_send_icon,
 } from '../../assets';
+import axios from 'axios';
 
 interface IChat {
   setdisplayInView: (value: string) => void;
@@ -28,6 +29,7 @@ interface IUser {
 }
 
 const BASE_URL = 'https://authenteak-backend.contextdata.dev';
+
 export function Chat(props: IChat) {
   const { setdisplayInView } = props;
   const { isOpen, setIsOpen } = useContext(WidgetContext);
@@ -47,32 +49,39 @@ export function Chat(props: IChat) {
     const { email, name } = data;
 
     try {
-      const response = await fetch(`${BASE_URL}/users`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          //   Authorization: `Bearer ${TOKEN}`,
-        },
-        body: JSON.stringify({ email, name }),
-      });
+      //   const response = await fetch(`${BASE_URL}/users`, {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       //   Authorization: `Bearer ${TOKEN}`,
+      //     },
+      //     body: JSON.stringify({ email, name }),
+      //   });
 
-      if (!response.ok) {
-        throw new Error('API request failed');
-      }
+      //   if (!response.ok) {
+      //     throw new Error('API request failed');
+      //   }
 
-      const data = await response.json();
+      //   const data = await response.json();
 
       console.log(data, 'vvjekdnvdnv');
 
-      //   const res = await fetch({
+      //   const res = await axios({
       //     url: `${BASE_URL}/users`,
       //     data: { ...data },
       //     method: 'POST',
       //   });
 
-      //   console.log(res.data, 'data');
+      const res = await axios.post(`${BASE_URL}/users`, {
+        email,
+        name,
+      });
 
-      //   return res.data;
+      //const res = await axios.get(`${BASE_URL}`);
+
+      console.log(res.data, 'data');
+
+      return res.data;
     } catch (error) {
       console.error('Error sending message:', error);
       return 'Sorry, there was an error processing your request.';

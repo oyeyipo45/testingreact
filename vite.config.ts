@@ -9,11 +9,5 @@ export default defineConfig({
     // If you want to automatically open the browser
     open: true,
     // If you have a proxy setup
-    proxy: {
-      '/api': {
-        target: 'http://localhost:8080',
-        changeOrigin: true,
-      },
-    },
   },
 });
