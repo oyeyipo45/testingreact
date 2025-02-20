@@ -43,8 +43,6 @@ export function Chat(props: IChat) {
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const [session_id, setSession_id] = useState('');
-
   const sendMessage = async (data: IUser) => {
     const { email, name } = data;
 
@@ -187,6 +185,8 @@ export function Chat(props: IChat) {
     value: string;
     key: string;
   }
+
+  // TODO : REMOVE AXIOS
 
   const options = [
     {

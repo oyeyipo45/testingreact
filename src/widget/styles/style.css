@@ -92,7 +92,9 @@
     bottom: 20px;
     right: 20px;
     width: 400px;
-    height: 750px;
+    height: auto;
+    min-height:calc(100vh - 150px);
+    max-height: calc(100vh - 50px);
     background: white;
     z-index: 9999;
     box-sizing: border-box;
@@ -112,7 +114,7 @@
     -webkit-scrollbar : none; */
   }
 
-   .footer-icon-image:hover {
+   .footer-icon-image {
     color: red
   }
 
@@ -152,7 +154,7 @@
   }
 
   .widget-content {
-    @apply p-6 flex flex-col items-center gap-6;
+    @apply p-6 flex flex-col items-center gap-6 overflow-auto;
   }
 
   .widget-content-upper-section {
@@ -241,11 +243,12 @@
   }
 
   .footer {
-    @apply flex px-6 py-4 items-center gap-5;
+    @apply flex px-6 py-4 items-center gap-1;
   }
 
+
   .footer-icon {
-    @apply w-full py-2 flex justify-center items-center flex-col rounded-xl hover:cursor-pointer;
+    @apply w-full py-2 flex justify-center items-center flex-col rounded-xl hover:cursor-pointer  hover:bg-[#dee9ef];
   }
 
   .footer-icon-container-chat {
@@ -253,11 +256,7 @@
   }
 
   .footer-text-home {
-    @apply mt-1 leading-[1.6] text-[10px] font-bold tracking-[0.2px] text-[#9E9E9E];
-  }
-
-  .footer-text-chat {
-    @apply leading-[1.6] text-[10px] font-bold tracking-[0.2px] text-[#4C7B98];
+    @apply mt-1 leading-[1.6] text-[10px] font-bold tracking-[0.2px] ;
   }
 
   .send-message {

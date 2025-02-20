@@ -3,21 +3,35 @@ import { WidgetContext } from '../lib/context';
 import {
   black_send_icon,
   close_icon,
-  email_icon,
   hamburger_icon,
-  home_icon,
-  message_icon,
   rotated_send_icon,
   white_send_icon,
 } from '../../assets';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faComment,
+  faEnvelope,
+  faHouse,
+} from '@fortawesome/free-solid-svg-icons';
 
 interface IWidget {
   setdisplayInView: (value: string) => void;
 }
 
+enum IHomeComponents {
+  HOME = 'home',
+  CHAT = 'chat',
+  EMAIL = 'email',
+}
+
 export function Widget(props: IWidget) {
   const { setdisplayInView } = props;
   const { isOpen, setIsOpen } = useContext(WidgetContext);
+
+  const [activeTab, setActiveTab] = useState<IHomeComponents>(
+    IHomeComponents.HOME,
+  );
+  const [currentHover, setCurrentHover] = useState<IHomeComponents>();
 
   const [isMoadalOpen, setModalIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -66,6 +80,24 @@ export function Widget(props: IWidget) {
       </button>
     );
   }
+
+  console.log(activeTab, 'activeTab');
+
+  const chatColor =
+    activeTab === IHomeComponents.CHAT || currentHover === IHomeComponents.CHAT
+      ? '#4C7B98'
+      : '#9E9E9E';
+
+  const homeColor =
+    activeTab === IHomeComponents.HOME || currentHover === IHomeComponents.HOME
+      ? '#4C7B98'
+      : '#9E9E9E';
+
+  const emailColor =
+    activeTab === IHomeComponents.EMAIL ||
+    currentHover === IHomeComponents.EMAIL
+      ? '#4C7B98'
+      : '#9E9E9E';
 
   return (
     <div className='widget-container'>
@@ -165,27 +197,63 @@ export function Widget(props: IWidget) {
           <div className='separator' />
         </div>
         <div className='footer'>
-          <div className='footer-icon'>
+          <div
+            className='footer-icon'
+            onMouseEnter={() => setCurrentHover(IHomeComponents.HOME)}
+            onMouseLeave={() => setCurrentHover(activeTab)}
+            onClick={() => setActiveTab(IHomeComponents.HOME)}
+          >
             <div>
-              <img src={home_icon} alt='home' className='footer-icon-image' />
+              {/* <img src={home_icon} alt='home' className='footer-icon-image' /> */}
+              <FontAwesomeIcon icon={faHouse} color={homeColor} fontSize={28} />
             </div>
-            <span className='footer-text-home'>Chat</span>
+            <span className='footer-text-home' style={{ color: homeColor }}>
+              Home
+            </span>
           </div>
-          <div className='footer-icon' onClick={() => setdisplayInView('chat')}>
-            <div className='footer-icon-container-chat'>
-              <img
+          <div
+            className='footer-icon'
+            onMouseEnter={() => setCurrentHover(IHomeComponents.CHAT)}
+            onMouseLeave={() => setCurrentHover(activeTab)}
+            onClick={() => {
+              setdisplayInView('chat');
+              setActiveTab(IHomeComponents.CHAT);
+            }}
+          >
+            <div className=''>
+              {/* <img
                 src={message_icon}
                 alt='chat'
                 className='footer-icon-image'
+              /> */}
+              <FontAwesomeIcon
+                icon={faComment}
+                color={chatColor}
+                fontSize={28}
               />
             </div>
-            <span className='footer-text-chat'>Chat</span>
+            <span className='footer-text-home' style={{ color: chatColor }}>
+              Chat
+            </span>
           </div>
-          <div className='footer-icon' onClick={() => setdisplayInView('chat')}>
-            <div className='footer-icon-container-chat'>
-              <img src={email_icon} alt='chat' className='footer-icon-image' />
+          <div
+            className='footer-icon'
+            onMouseEnter={() => setCurrentHover(IHomeComponents.EMAIL)}
+            onMouseLeave={() => setCurrentHover(activeTab)}
+            onClick={() => {
+              setActiveTab(IHomeComponents.EMAIL);
+            }}
+          >
+            <div className=''>
+              <FontAwesomeIcon
+                icon={faEnvelope}
+                color={emailColor}
+                fontSize={28}
+              />
             </div>
-            <span className='footer-text-home'>Email</span>
+            <span className='footer-text-home' style={{ color: emailColor }}>
+              Email
+            </span>
           </div>
         </div>
       </div>
