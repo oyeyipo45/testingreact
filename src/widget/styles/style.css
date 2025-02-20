@@ -204,7 +204,7 @@
   }
 
   .chat-with-us {
-    @apply my-2 p-6 bg-[#4C7B98] rounded-[20px] flex justify-between hover:bg-[#1a5270] hover:cursor-pointer;
+    @apply my-2 p-5 bg-[#4C7B98] rounded-[20px] flex justify-between hover:bg-[#1a5270] hover:cursor-pointer;
   }
 
    .speak-with-agent {

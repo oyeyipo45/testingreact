@@ -11,7 +11,6 @@ import {
   rotated_send_icon,
   white_send_icon,
 } from '../../assets';
-import axios from 'axios';
 
 interface IChat {
   setdisplayInView: (value: string) => void;
@@ -48,30 +47,32 @@ export function Chat(props: IChat) {
     const { email, name } = data;
 
     try {
-      //   const response = await fetch(`${BASE_URL}/users`, {
-      //     method: 'POST',
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //       //   Authorization: `Bearer ${TOKEN}`,
-      //     },
-      //     body: JSON.stringify({ email, name }),
-      //   });
-
-      //   if (!response.ok) {
-      //     throw new Error('API request failed');
-      //   }
-
-      //   const data = await response.json();
-
-      const res = await axios({
-        url: `${BASE_URL}/users`,
-        data: { ...data },
+      const response = await fetch(`${BASE_URL}/users`, {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          //   Authorization: `Bearer ${TOKEN}`,
+        },
+        body: JSON.stringify({ email, name }),
       });
 
-      console.log(res.data, 'data');
+      if (!response.ok) {
+        throw new Error('API request failed');
+      }
 
-      return res.data;
+      const data = await response.json();
+
+      console.log(data, 'vvjekdnvdnv');
+
+      //   const res = await fetch({
+      //     url: `${BASE_URL}/users`,
+      //     data: { ...data },
+      //     method: 'POST',
+      //   });
+
+      //   console.log(res.data, 'data');
+
+      //   return res.data;
     } catch (error) {
       console.error('Error sending message:', error);
       return 'Sorry, there was an error processing your request.';
