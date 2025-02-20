@@ -112,6 +112,10 @@
     -webkit-scrollbar : none; */
   }
 
+   .footer-icon-image:hover {
+    color: red
+  }
+
   .widget-container-body {
     @apply flex-col flex-1 flex overflow-hidden;
   }
@@ -241,7 +245,7 @@
   }
 
   .footer-icon {
-    @apply w-full py-2 flex justify-center items-center flex-col gap-2 rounded-xl hover:cursor-pointer;
+    @apply w-full py-2 flex justify-center items-center flex-col rounded-xl hover:cursor-pointer;
   }
 
   .footer-icon-container-chat {
@@ -249,7 +253,7 @@
   }
 
   .footer-text-home {
-    @apply leading-[1.6] text-[10px] font-bold tracking-[0.2px] text-[#9E9E9E];
+    @apply mt-1 leading-[1.6] text-[10px] font-bold tracking-[0.2px] text-[#9E9E9E];
   }
 
   .footer-text-chat {
@@ -629,7 +633,7 @@
   }
 
   .footer-icon {
-    @apply w-full h-[32px] flex justify-center items-center flex-col gap-2;
+    @apply w-full h-[32px] flex justify-center items-center flex-col 
   }
 
   .footer-icon-container {
@@ -637,7 +641,11 @@
   }
 
   .footer-text-home {
-    @apply leading-[1.6] text-[10px] font-bold tracking-[0.2px] text-[#9E9E9E];
+    @apply mt-1 leading-[1.6] text-[10px] font-bold tracking-[0.2px] text-[#9E9E9E];
+  }
+
+  .footer-icon-image:hover {
+    color: red
   }
 
   .footer-text-chat {

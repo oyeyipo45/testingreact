@@ -3,6 +3,7 @@ import { WidgetContext } from '../lib/context';
 import {
   black_send_icon,
   close_icon,
+  email_icon,
   hamburger_icon,
   home_icon,
   message_icon,
@@ -18,35 +19,32 @@ export function Widget(props: IWidget) {
   const { setdisplayInView } = props;
   const { isOpen, setIsOpen } = useContext(WidgetContext);
 
- 
+  const [isMoadalOpen, setModalIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-    const [isMoadalOpen, setModalIsOpen] = useState(false);
-    const dropdownRef = useRef<HTMLDivElement>(null);
-  
-    const handleMouseEnter = () => {
-      setModalIsOpen(true);
-    };
-  
-    const handleMouseLeave = () => {
-      setModalIsOpen(false);
-    };
-  
-    useEffect(() => {
-      const handleClickOutside = (event: MouseEvent) => {
-        if (
-          dropdownRef.current &&
-          !dropdownRef.current.contains(event.target as Node)
-        ) {
-          setModalIsOpen(false);
-        }
-      };
-  
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
-      };
-    }, []);
+  const handleMouseEnter = () => {
+    setModalIsOpen(true);
+  };
 
+  const handleMouseLeave = () => {
+    setModalIsOpen(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setModalIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   interface IOptions {
     value: string;
@@ -59,25 +57,22 @@ export function Widget(props: IWidget) {
       key: 'notification',
     },
     { value: 'Rate your experience', key: 'experience' },
+  ];
 
-  ]
+  if (!isOpen) {
+    return (
+      <button className='widget-button' onClick={() => setIsOpen(true)}>
+        <img src={rotated_send_icon} alt='open widget' />
+      </button>
+    );
+  }
 
-   if (!isOpen) {
-     return (
-       <button className='widget-button' onClick={() => setIsOpen(true)}>
-         <img src={rotated_send_icon} alt='open widget' />
-       </button>
-     );
-   }
-
-  
-  
   return (
     <div className='widget-container'>
       <div className='widget-container-body'>
         <div className='widget-header'>
           <div className='widget-nav'>
-            <div className="header-component-position">
+            <div className='header-component-position'>
               <div
                 className='dropdown'
                 onMouseEnter={handleMouseEnter}
@@ -172,15 +167,25 @@ export function Widget(props: IWidget) {
         <div className='footer'>
           <div className='footer-icon'>
             <div>
-              <img src={home_icon} alt='home' />
+              <img src={home_icon} alt='home' className='footer-icon-image' />
             </div>
             <span className='footer-text-home'>Chat</span>
           </div>
           <div className='footer-icon' onClick={() => setdisplayInView('chat')}>
             <div className='footer-icon-container-chat'>
-              <img src={message_icon} alt='chat' />
+              <img
+                src={message_icon}
+                alt='chat'
+                className='footer-icon-image'
+              />
             </div>
             <span className='footer-text-chat'>Chat</span>
+          </div>
+          <div className='footer-icon' onClick={() => setdisplayInView('chat')}>
+            <div className='footer-icon-container-chat'>
+              <img src={email_icon} alt='chat' className='footer-icon-image' />
+            </div>
+            <span className='footer-text-home'>Email</span>
           </div>
         </div>
       </div>
