@@ -25,23 +25,7 @@ function onReady() {
     injectStyle(shadowRoot);
     hydrateRoot(shadowRoot, component);
 
-    const iframe = document.createElement('iframe');
-
-    const iframeStyle = iframe.style;
-    iframeStyle.boxSizing = 'borderBox';
-    iframeStyle.position = 'absolute';
-    iframeStyle.right = '0';
-    iframeStyle.bottom = '0';
-    iframeStyle.width = '100%';
-    iframeStyle.height = '100%';
-    iframeStyle.border = '0';
-    iframeStyle.margin = '0';
-    iframeStyle.padding = '0';
-    iframeStyle.width = '400px';
-
-    const ele = element.appendChild(iframe);
-
-    document.body.appendChild(ele);
+    document.body.appendChild(element);
   } catch (error) {
     console.warn('Widget initialization failed:', error);
   }

@@ -137,6 +137,12 @@
     @apply flex justify-between p-6;
   }
 
+  .header-component-position{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .nav-icon-container {
     @apply h-6 w-6 rounded-md hover:cursor-pointer hover:bg-[#dee9ef] flex justify-center items-center p-2;
   }
