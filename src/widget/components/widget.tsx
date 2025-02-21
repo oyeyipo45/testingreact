@@ -3,6 +3,7 @@ import { WidgetContext } from '../lib/context';
 import {
   black_send_icon,
   close_icon,
+  green_arrow_right,
   hamburger_icon,
   rotated_send_icon,
   white_send_icon,
@@ -164,11 +165,11 @@ export function Widget(props: IWidget) {
                 className='product-question'
                 onClick={() => setdisplayInView('chat')}
               >
-                <span className='product-question-text '>
+                <span className='product-question-text'>
                   I have a question about a product
                 </span>
-                <div className='w-10 h-10'>
-                  <img src={black_send_icon} alt='send message' />
+                <div className='question-arrow-icon'>
+                  <img src={green_arrow_right} alt='Question about product' />
                 </div>
               </div>
               <div
@@ -178,8 +179,8 @@ export function Widget(props: IWidget) {
                 <span className='product-question-text '>
                   What is the status of my order?
                 </span>
-                <div className='w-10 h-10'>
-                  <img src={black_send_icon} alt='send message' />
+                <div className='question-arrow-icon'>
+                  <img src={green_arrow_right} alt='Question about order' />
                 </div>
               </div>
             </div>
@@ -242,7 +243,7 @@ export function Widget(props: IWidget) {
             onMouseEnter={() => setCurrentHover(IHomeComponents.EMAIL)}
             onMouseLeave={() => setCurrentHover(activeTab)}
             onClick={() => {
-              setActiveTab(IHomeComponents.EMAIL)
+              setActiveTab(IHomeComponents.EMAIL);
             }}
           >
             <div className=''>

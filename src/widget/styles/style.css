@@ -206,11 +206,26 @@
   }
 
   .product-question {
-    @apply flex justify-between p-5  border-[1px] border-black bg-[#F0F4F7] rounded-2xl hover:bg-[#dee9ef] hover:cursor-pointer;
+    /* @apply flex justify-between p-5 items-center bg-[#F0F4F7] rounded-2xl hover:bg-[#dee9ef] hover:cursor-pointer border; */
+
+       display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+    border: 1px solid #4c7b9a;
+    background-color: #f0f4f7;
+    border-radius: 16px;
+  }
+
+  .product-question:hover {
+    /* @apply flex justify-between p-5 items-center border-[1px] border-black bg-[#F0F4F7] rounded-2xl hover:bg-[#dee9ef] hover:cursor-pointer; */
+
+    cursor: pointer;
+    background: #dee9ef;
   }
 
   .product-question-text {
-    @apply text-[#212121];
+    @apply text-[#4C7B9A];
   }
 
   .chat-with-us {
@@ -609,14 +624,35 @@
   }
 
   .product-question {
-    @apply flex justify-between p-5  border-[1px] border-black bg-[#F0F4F7] rounded-2xl hover:bg-[#dee9ef] hover:cursor-pointer;
+    /* @apply flex justify-between p-5 items-center border-[1px] border-black bg-[#F0F4F7] rounded-2xl hover:bg-[#dee9ef] hover:cursor-pointer; */
+
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+    border: 1px solid #4c7b9a;
+    background-color: #f0f4f7;
+    border-radius: 16px;
   }
+
+  .product-question:hover {
+    /* @apply flex justify-between p-5 items-center border-[1px] border-black bg-[#F0F4F7] rounded-2xl hover:bg-[#dee9ef] hover:cursor-pointer; */
+
+    cursor: pointer;
+    background: #dee9ef;
+  }
+
+  .question-arrow-icon {
+    margin-top: 5px;
+  }
+
+  /* .add-border {
+    border: "1px solid red"
+  } */
 
   .product-question-text {
-    @apply text-[#212121];
+    @apply text-[#4C7B9A];
   }
-
-  
 
   .chat-with-us {
     @apply w-full border-none my-2 p-5 bg-[#4C7B98] rounded-[20px] flex justify-between hover:bg-[#1a5270] hover:cursor-pointer items-center;

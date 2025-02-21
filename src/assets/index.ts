@@ -11,3 +11,4 @@ export { default as green_message_icon } from './green_message_icon.svg';
 export { default as person_icon } from './person_icon.svg';
 export { default as green_send_icon } from './green_send_icon.svg';
 export { default as email_icon } from './email_icon.svg';
+export { default as green_arrow_right } from './green_arrow_right.svg';
