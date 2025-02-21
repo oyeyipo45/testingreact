@@ -877,6 +877,21 @@
     font-size: 14px;
   }
 
+  .email-text-error {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #a60e11;
+    background-color: #f0f4f7;
+    padding-right: 20px;
+    border-radius: 16px;
+  }
+
+  .email-text-error:focus-within {
+    outline: 1px solid #a60e11;
+  }
+
   .close-name-modal {
     padding: 8px;
   }

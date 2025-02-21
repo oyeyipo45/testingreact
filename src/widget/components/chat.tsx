@@ -273,12 +273,12 @@ export function Chat(props: IChat) {
     <div className='widget-container'>
       <div className='widget-container-body'>
         <div className='widget-chat-header'>
-          {Avatar && (
+        
             <div className='widget-nav'>
               <span className='widget-username'>{Avatar}</span>
               <span className='online-text'>Online</span>
             </div>
-          )}
+        
 
           <div className='widget-nav'>
             <div
