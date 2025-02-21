@@ -12,13 +12,7 @@ import {
   faComment,
   faEnvelope,
   faHouse,
-  IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
-import { findIconDefinition } from "@fortawesome/fontawesome-svg-core";
-
-const faHouseDefinition: IconDefinition = findIconDefinition(faHouse);
-const faEnvelopeDefinition: IconDefinition = findIconDefinition(faEnvelope);
-const faCommentDefinition: IconDefinition = findIconDefinition(faComment);
 
 interface IWidget {
   setdisplayInView: (value: string) => void;
@@ -211,11 +205,7 @@ export function Widget(props: IWidget) {
             onClick={() => setActiveTab(IHomeComponents.HOME)}
           >
             <div>
-              <FontAwesomeIcon
-                icon={faHouseDefinition}
-                color={homeColor}
-                fontSize={28}
-              />
+              <FontAwesomeIcon icon={faHouse} color={homeColor} fontSize={28} />
             </div>
             <span className='footer-text-home' style={{ color: homeColor }}>
               Home
@@ -232,7 +222,7 @@ export function Widget(props: IWidget) {
           >
             <div className=''>
               <FontAwesomeIcon
-                icon={faCommentDefinition}
+                icon={faComment}
                 color={chatColor}
                 fontSize={28}
               />
@@ -251,7 +241,7 @@ export function Widget(props: IWidget) {
           >
             <div className=''>
               <FontAwesomeIcon
-                icon={faEnvelopeDefinition}
+                icon={faEnvelope}
                 color={emailColor}
                 fontSize={28}
               />
