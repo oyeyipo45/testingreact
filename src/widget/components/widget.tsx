@@ -13,6 +13,9 @@ import {
   faEnvelope,
   faHouse,
 } from '@fortawesome/free-solid-svg-icons';
+import { MdEmail } from 'react-icons/md';
+import { TiHome } from 'react-icons/ti';
+import { IoChatbubbleEllipsesSharp } from 'react-icons/io5';
 
 interface IWidget {
   setdisplayInView: (value: string) => void;
@@ -205,7 +208,9 @@ export function Widget(props: IWidget) {
             onClick={() => setActiveTab(IHomeComponents.HOME)}
           >
             <div>
-              <FontAwesomeIcon icon={faHouse} color={homeColor} fontSize={28} />
+              {/* <FontAwesomeIcon icon={faHouse} color={homeColor} fontSize={28} />
+               */}
+              <TiHome color={homeColor} fontSize={28} />
             </div>
             <span className='footer-text-home' style={{ color: homeColor }}>
               Home
@@ -221,11 +226,12 @@ export function Widget(props: IWidget) {
             }}
           >
             <div className=''>
-              <FontAwesomeIcon
+              {/* <FontAwesomeIcon
                 icon={faComment}
                 color={chatColor}
                 fontSize={28}
-              />
+              /> */}
+              <IoChatbubbleEllipsesSharp color={chatColor} fontSize={28} />;
             </div>
             <span className='footer-text-home' style={{ color: chatColor }}>
               Chat
@@ -240,11 +246,12 @@ export function Widget(props: IWidget) {
             }}
           >
             <div className=''>
-              <FontAwesomeIcon
+              {/* <FontAwesomeIcon
                 icon={faEnvelope}
                 color={emailColor}
                 fontSize={28}
-              />
+              /> */}
+              <MdEmail color={emailColor} fontSize={28} />
             </div>
             <span className='footer-text-home' style={{ color: emailColor }}>
               Email

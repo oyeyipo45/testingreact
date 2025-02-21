@@ -67,7 +67,7 @@ export function Chat(props: IChat) {
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const sendMessage = async (data: IUser) => {
+  const sendUserDetails = async (data: IUser) => {
     const { email, name } = data;
     setisUpdatingUserDetails(true);
     setInitials(name);
@@ -76,27 +76,6 @@ export function Chat(props: IChat) {
       return;
     }
     try {
-      //   const response = await fetch(`${BASE_URL}/users`, {
-      //     method: 'POST',
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //       //   Authorization: `Bearer ${TOKEN}`,
-      //     },
-      //     body: JSON.stringify({ email, name }),
-      //   });
-
-      //   if (!response.ok) {
-      //     throw new Error('API request failed');
-      //   }
-
-      //   const data = await response.json();
-
-      //   const res = await axios({
-      //     url: `${BASE_URL}/users`,
-      //     data: { ...data },
-      //     method: 'POST',
-      //   });
-
       const res = await axios.post(`${BASE_URL}/users`, {
         email,
         name,
@@ -114,11 +93,7 @@ export function Chat(props: IChat) {
 
       setSessionId(session_id);
       setUserId(user_id);
-
       setIsNameModalOpen(false);
-
-      //const res = await axios.get(`${BASE_URL}`);
-
 
       return res.data;
     } catch (error) {
@@ -148,20 +123,41 @@ export function Chat(props: IChat) {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${BASE_URL}/chats/messages`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `${BASE_URL}/chats/messages?session=${sessionId}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message: inputText }),
         },
-        body: JSON.stringify({ message: inputText }),
-      });
+      );
 
       if (!response.ok) {
         throw new Error('API request failed');
       }
 
-      const data = await response.json();
+      const res = await response.json();
+      console.log(res, 'data');
+
+      const data = res.data?.data;
+
       console.log(data, 'data');
+
+      const {
+        response: { object },
+      } = data;
+
+      console.log(object, 'object');
+
+      const botMessage = {
+        id: Math.random(),
+        content: inputText,
+        sender: 'bot',
+      };
+
+      setMessages((prev: IMessage[]) => [...prev, botMessage]);
 
       return data; // Adjust based on your API response structure
     } catch (error) {
@@ -169,15 +165,15 @@ export function Chat(props: IChat) {
       return 'Sorry, there was an error processing your request.';
     }
 
-    setTimeout(() => {
-      setIsLoading(false);
-      const botMessage = {
-        id: Math.random(),
-        content: 'How are you doing today ?',
-        sender: 'bot',
-      };
-      setMessages((prev: IMessage[]) => [...prev, botMessage]);
-    }, 500);
+    // setTimeout(() => {
+    //   setIsLoading(false);
+    //   const botMessage = {
+    //     id: Math.random(),
+    //     content: 'How are you doing today ?',
+    //     sender: 'bot',
+    //   };
+    //   setMessages((prev: IMessage[]) => [...prev, botMessage]);
+    // }, 500);
   };
 
   const toggleModal = () => {
@@ -259,9 +255,10 @@ export function Chat(props: IChat) {
       </button>
     );
   }
-    
-    console.log(!email, !isValidEmail(email), isUpdatingUserDetails);
-    
+
+  console.log(!email, !isValidEmail(email), isUpdatingUserDetails);
+
+  const emailValidaty = !email || !isValidEmail(email) || isUpdatingUserDetails;
 
   // TODO : REMOVE AXIOS
 
@@ -276,10 +273,16 @@ export function Chat(props: IChat) {
     <div className='widget-container'>
       <div className='widget-container-body'>
         <div className='widget-chat-header'>
+          {/* {Avatar ? ( */}
           <div className='widget-nav'>
-            {Avatar && <span className='widget-username'>{Avatar}</span>}
+            {/* <span className='widget-username'>{Avatar}</span> */}
+            <span className='widget-username'>A</span>
             <span className='online-text'>Online</span>
           </div>
+          {/* ) : (
+            <div></div>
+          )} */}
+
           <div className='widget-nav'>
             <div
               className='nav-icon-container'
@@ -435,11 +438,9 @@ export function Chat(props: IChat) {
               </div>
 
               <button
-                className='chat-with-us'
-                disabled={
-                  !email || !isValidEmail(email) || isUpdatingUserDetails
-                }
-                onClick={() => sendMessage({ email, name })}
+                className={`chat-with-us ${emailValidaty ? 'disabled' : ''}`}
+                disabled={emailValidaty}
+                onClick={() => sendUserDetails({ email, name })}
               >
                 <span className='chat-question-text'>Chat with us</span>
                 <img
