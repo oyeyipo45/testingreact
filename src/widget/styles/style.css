@@ -608,8 +608,10 @@
     @apply text-[#212121];
   }
 
+  
+
   .chat-with-us {
-    @apply my-6 p-5 bg-[#4C7B98] rounded-[20px] flex justify-between hover:bg-[#1a5270] hover:cursor-pointer;
+    @apply w-full border-none my-2 p-5 bg-[#4C7B98] rounded-[20px] flex justify-between hover:bg-[#1a5270] hover:cursor-pointer items-center;
   }
 
   .chat-with-us .disabled {
@@ -657,6 +659,10 @@
 
   .footer-icon {
     @apply w-full h-[32px] flex justify-center items-center flex-col;
+  }
+
+  .footer-chat {
+    @apply flex px-6 py-4 items-center gap-2;
   }
 
   .footer-icon-container {
