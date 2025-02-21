@@ -143,6 +143,10 @@
     @apply flex justify-between p-6;
   }
 
+  .widget-chat-header-avatar {
+    @apply flex justify-end p-6;
+  }
+
   .header-component-position {
     display: flex;
     justify-content: center;
@@ -163,6 +167,10 @@
 
   .widget-nav {
     @apply flex gap-2 items-center;
+  }
+
+  .widget-nav-chat {
+    @apply flex justify-end items-center;
   }
 
   .widget-username {
