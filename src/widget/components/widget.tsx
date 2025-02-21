@@ -242,7 +242,7 @@ export function Widget(props: IWidget) {
             onMouseEnter={() => setCurrentHover(IHomeComponents.EMAIL)}
             onMouseLeave={() => setCurrentHover(activeTab)}
             onClick={() => {
-              setActiveTab(IHomeComponents.EMAIL);
+              setActiveTab(IHomeComponents.EMAIL)
             }}
           >
             <div className=''>

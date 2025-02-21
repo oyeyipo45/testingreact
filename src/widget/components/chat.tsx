@@ -122,58 +122,58 @@ export function Chat(props: IChat) {
     setInputText('');
     setIsLoading(true);
 
-    try {
-      const response = await fetch(
-        `${BASE_URL}/chats/messages?session=${sessionId}`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ message: inputText }),
-        },
-      );
+    // try {
+    //   const response = await fetch(
+    //     `${BASE_URL}/chats/messages?session=${sessionId}`,
+    //     {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify({ message: inputText }),
+    //     },
+    //   );
 
-      if (!response.ok) {
-        throw new Error('API request failed');
-      }
+    //   if (!response.ok) {
+    //     throw new Error('API request failed');
+    //   }
 
-      const res = await response.json();
-      console.log(res, 'data');
+    //   const res = await response.json();
+    //   console.log(res, 'data');
 
-      const data = res.data?.data;
+    //   const data = res.data?.data;
 
-      console.log(data, 'data');
+    //   console.log(data, 'data');
 
-      const {
-        response: { object },
-      } = data;
+    //   const {
+    //     response: { object },
+    //   } = data;
 
-      console.log(object, 'object');
+    //   console.log(object, 'object');
 
-      const botMessage = {
-        id: Math.random(),
-        content: inputText,
-        sender: 'bot',
-      };
-
-      setMessages((prev: IMessage[]) => [...prev, botMessage]);
-
-      return data; // Adjust based on your API response structure
-    } catch (error) {
-      console.error('Error sending message:', error);
-      return 'Sorry, there was an error processing your request.';
-    }
-
-    // setTimeout(() => {
-    //   setIsLoading(false);
     //   const botMessage = {
     //     id: Math.random(),
-    //     content: 'How are you doing today ?',
+    //     content: inputText,
     //     sender: 'bot',
     //   };
+
     //   setMessages((prev: IMessage[]) => [...prev, botMessage]);
-    // }, 500);
+
+    //   return data; // Adjust based on your API response structure
+    // } catch (error) {
+    //   console.error('Error sending message:', error);
+    //   return 'Sorry, there was an error processing your request.';
+    // }
+
+    setTimeout(() => {
+      setIsLoading(false);
+      const botMessage = {
+        id: Math.random(),
+        content: 'How are you doing today ?',
+        sender: 'bot',
+      };
+      setMessages((prev: IMessage[]) => [...prev, botMessage]);
+    }, 500);
   };
 
   const toggleModal = () => {
