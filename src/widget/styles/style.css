@@ -987,5 +987,5 @@
 }
 
 .widget-container {
-  font-family: 'Montserrat';
+  font-family: 'Montserrat' !important;
 }
