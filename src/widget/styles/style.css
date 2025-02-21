@@ -638,7 +638,7 @@
   }
 
   .chat-question-text {
-    @apply text-white font-bold tracking-[1.5];
+    @apply text-white font-bold tracking-[1.5] text-base;
   }
 
   .agent-question-text {
