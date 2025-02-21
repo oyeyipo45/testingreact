@@ -13,6 +13,7 @@ import {
   faEnvelope,
   faHouse,
 } from '@fortawesome/free-solid-svg-icons';
+import { MdEmail } from 'react-icons/md';
 
 interface IWidget {
   setdisplayInView: (value: string) => void;
@@ -240,11 +241,12 @@ export function Widget(props: IWidget) {
             }}
           >
             <div className=''>
-              <FontAwesomeIcon
+              {/* <FontAwesomeIcon
                 icon={faEnvelope}
                 color={emailColor}
                 fontSize={28}
-              />
+              /> */}
+              <MdEmail color={emailColor} fontSize={28} />
             </div>
             <span className='footer-text-home' style={{ color: emailColor }}>
               Email
