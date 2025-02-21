@@ -208,7 +208,7 @@
   .product-question {
     /* @apply flex justify-between p-5 items-center bg-[#F0F4F7] rounded-2xl hover:bg-[#dee9ef] hover:cursor-pointer border; */
 
-       display: flex;
+    display: flex;
     justify-content: space-between;
     padding: 20px;
     align-items: center;
@@ -984,4 +984,8 @@
   .chat-question-text {
     @apply text-[14px] text-white font-bold tracking-[1.6];
   }
+}
+
+.widget-container {
+  font-family: 'Montserrat';
 }
