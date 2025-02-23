@@ -323,7 +323,7 @@ export function Chat(props: IChat) {
           </div>
         </div>
 
-        <div className='cover'>
+        <div className=''>
           <div className='messages-container'>
             {messages.map((message: IMessage) => (
               <div className='message-inners' key={message.id}>
@@ -382,7 +382,7 @@ export function Chat(props: IChat) {
         </form>
       </div>
 
-      {isNameModalOpen && (
+      {/* {isNameModalOpen && (
         <div className='name-container'>
           <div className={`modal-overlay ${isNameModalOpen ? 'show' : ''}`}>
             <div className='modal-content'>
@@ -460,7 +460,7 @@ export function Chat(props: IChat) {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
