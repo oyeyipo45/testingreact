@@ -81,6 +81,36 @@
   border: 1px solid #4c7b9a; /* Slide slightly up initially */
 }
 
+.bot-spacing {
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+}
+
+.products-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.product-details-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-message {
+    @apply flex w-full p-4 bg-[#F5F5F5] rounded-[20px] text-[#212121];
+  }
+
 @media only screen and (min-width: 768px) {
   /* .widget-container {
     @apply fixed bottom-5 right-5 w-[400px] h-[803px] bg-white border border-gray-200 rounded-lg 
