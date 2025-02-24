@@ -1,12 +1,19 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { WidgetContext } from '../lib/context';
 import {
+  black_send_icon,
   close_icon,
   green_arrow_right,
   hamburger_icon,
   rotated_send_icon,
   white_send_icon,
 } from '../../assets';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faComment,
+  faEnvelope,
+  faHouse,
+} from '@fortawesome/free-solid-svg-icons';
 import { MdEmail } from 'react-icons/md';
 import { TiHome } from 'react-icons/ti';
 import { IoChatbubbleEllipsesSharp } from 'react-icons/io5';
@@ -141,15 +148,15 @@ export function Widget(props: IWidget) {
           <div className='widget-content-upper-section'>
             <div className='widget-username'>A</div>
             <div className='widget-hello-message-container'>
-              <span className='widget-hello-message'>Hello there 👋 </span>
+              <div className='widget-hello-message'>Hello there 👋 </div>
             </div>
             <div className='widget-message-container'>
-              <span className='widget-message-heading'>
+              <div className='widget-message-heading'>
                 How can we help you ?
-              </span>
-              <span className='widget-message'>
+              </div>
+              <div className='widget-message'>
                 You can ask anything about product, orders, or your account.
-              </span>
+              </div>
             </div>
           </div>
           <div className='widget-question-section'>
@@ -225,7 +232,7 @@ export function Widget(props: IWidget) {
                 color={chatColor}
                 fontSize={28}
               /> */}
-              <IoChatbubbleEllipsesSharp color={chatColor} fontSize={28} />
+              <IoChatbubbleEllipsesSharp color={chatColor} fontSize={28} />;
             </div>
             <span className='footer-text-home' style={{ color: chatColor }}>
               Chat
@@ -248,7 +255,7 @@ export function Widget(props: IWidget) {
               <MdEmail color={emailColor} fontSize={28} />
             </div>
             <span className='footer-text-home' style={{ color: emailColor }}>
-              E-mail
+              Email
             </span>
           </div>
         </div>
