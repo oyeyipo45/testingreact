@@ -49,15 +49,20 @@ function getFirstCharacterOfFirstWord(sentence: string) {
 
 export function Chat(props: IChat) {
   const { setdisplayInView } = props;
-  const { isOpen, setIsOpen } = useContext(WidgetContext);
+  const { isOpen, setIsOpen, userEmail, setUserEmail } =
+    useContext(WidgetContext);
 
-   const messagesEndRef = useRef(null);
+  console.log(userEmail, 'userEmail');
 
-   const scrollToBottom = () => {
-     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-   };
-  
-  
+  const booleanEmail = Boolean(!userEmail);
+
+  console.log(booleanEmail, ':booleanEmail');
+
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const [isUpdatingUserDetails, setisUpdatingUserDetails] =
     useState<boolean>(false);
@@ -67,7 +72,9 @@ export function Chat(props: IChat) {
   const [name, setName] = useState<string>('');
   const [initials, setInitials] = useState<string>('');
   const [email, setEmail] = useState<string>('');
-  const [isNameModalOpen, setIsNameModalOpen] = useState(false);
+  const [isNameModalOpen, setIsNameModalOpen] = useState(booleanEmail);
+
+  console.log(isNameModalOpen, 'isNameModalOpen');
 
   const [userId, setUserId] = useState<string>('');
   const [sessionId, setSessionId] = useState<string>('');
@@ -77,12 +84,14 @@ export function Chat(props: IChat) {
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-   useEffect(() => {
-     scrollToBottom();
-   }, [messages]);
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const sendUserDetails = async (data: IUser) => {
     const { email, name } = data;
+
+    setUserEmail(email.trim());
     setisUpdatingUserDetails(true);
     setInitials(name);
     const body = email ? { email, name } : {};
@@ -110,10 +119,6 @@ export function Chat(props: IChat) {
       return 'Sorry, there was an error processing your request.';
     }
   };
-
-  useEffect(() => {
-    setIsNameModalOpen(true);
-  }, [name]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -262,8 +267,6 @@ export function Chat(props: IChat) {
       </button>
     );
   }
-
-  console.log(!email, !isValidEmail(email), isUpdatingUserDetails);
 
   // TODO : REMOVE AXIOS
 
