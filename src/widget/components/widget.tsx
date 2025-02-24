@@ -232,7 +232,7 @@ export function Widget(props: IWidget) {
                 color={chatColor}
                 fontSize={28}
               /> */}
-              <IoChatbubbleEllipsesSharp color={chatColor} fontSize={28} />;
+              <IoChatbubbleEllipsesSharp color={chatColor} fontSize={28} />
             </div>
             <span className='footer-text-home' style={{ color: chatColor }}>
               Chat
