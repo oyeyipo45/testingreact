@@ -101,7 +101,7 @@
 }
 
 .truncate {
-  width: 350px;
+  width: 330px;
   text-align: justify;
 }
 
@@ -116,7 +116,7 @@
 }
 
 .product-message {
-  @apply flex w-full p-4 bg-[#F5F5F5] rounded-[20px] text-[#212121];
+  @apply flex  p-4 bg-[#F5F5F5] rounded-[20px] text-[#212121];
 }
 
 .modal-overlay {
