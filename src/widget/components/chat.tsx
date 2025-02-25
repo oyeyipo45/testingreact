@@ -15,6 +15,7 @@ import axios from 'axios';
 import * as Yup from 'yup';
 import DOMPurify from 'dompurify';
 import { nanoid } from 'nanoid';
+import { shortDescription } from '../../utils';
 
 interface IChat {
   setdisplayInView: (value: string) => void;
@@ -31,6 +32,25 @@ interface IUser {
   email: string;
   name: string;
 }
+
+export const cssAppliedContent = (body: any, fullDescription?: boolean) => `
+<div>
+      <style>
+        p {
+          line-height: 20px;
+          font-size: 16px;
+          font-weight: 500;
+          letter-spacing: -0.14px
+          padding:0px;
+          margin : 0px;
+        }
+        
+      
+    
+      </style>
+      ${body}
+    <div>
+    `;
 
 const BASE_URL = 'https://authenteak-backend.contextdata.dev';
 
@@ -423,24 +443,34 @@ export function Chat(props: IChat) {
                                       <div className='product-message'>
                                         {' '}
                                         <div className='product-details-container'>
-                                          <div>
-                                            <span>Name</span>
+                                          <div className='product-item'>
+                                            <span className='heading'>
+                                              Name
+                                            </span>
                                             <span>{product.name}</span>
                                           </div>
 
-                                          <div>
-                                            <span>Description</span>
-                                            <p
+                                          <div className='product-item'>
+                                            <span className='heading'>
+                                              Description
+                                            </span>
+                                            <span
                                               className='truncate'
                                               dangerouslySetInnerHTML={{
-                                                __html: DOMPurify.sanitize(
-                                                  product.description,
+                                                __html: cssAppliedContent(
+                                                  shortDescription(
+                                                    DOMPurify.sanitize(
+                                                      product.description,
+                                                    ),
+                                                  ),
                                                 ),
                                               }}
                                             />
                                           </div>
-                                          <div>
-                                            <span>Price</span>
+                                          <div className='product-item'>
+                                            <span className='heading'>
+                                              Price
+                                            </span>
                                             <span>{product.price}</span>
                                           </div>
                                         </div>

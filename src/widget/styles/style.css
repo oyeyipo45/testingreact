@@ -101,10 +101,18 @@
 }
 
 .truncate {
-  width: 250px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  width: 350px;
+  text-align: justify;
+}
+
+.product-item {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.heading {
+  font-weight: 700;
 }
 
 .product-message {
