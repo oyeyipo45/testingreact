@@ -22,7 +22,7 @@ export const WidgetContext = createContext<WidgetContextType>({
     {
       sender: '',
       content: '',
-      id: 0,
+      id: '',
     },
   ],
 });

@@ -24,7 +24,7 @@ export interface IMessage {
   sender: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content: any;
-  id: number;
+  id: string;
 }
 
 interface IUser {
