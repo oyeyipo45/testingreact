@@ -1019,6 +1019,6 @@
 
 .widget-container {
   font-family: 'Montserrat' !important;
-  min-height: calc(100vh - 150px);
+  min-height: 100vh;
   max-height: calc(100vh - 50px);
 }

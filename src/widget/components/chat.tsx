@@ -256,18 +256,6 @@ export function Chat(props: IChat) {
     }
   };
 
-  if (!isOpen) {
-    return (
-      <button className='widget-button' onClick={() => setIsOpen(true)}>
-        <img
-          src={message_regular}
-          alt='open widget'
-          className='open-button-icon'
-        />
-      </button>
-    );
-  }
-
   // TODO : REMOVE AXIOS
 
   const options = [
@@ -279,6 +267,55 @@ export function Chat(props: IChat) {
   ];
 
   console.log(messages, 'messages');
+
+  const [isWidgetOpen, setIsWidgetOpen] = useState(false);
+
+  // Initialize Zendesk Widget
+  // useEffect(() => {
+  //   // Add Zendesk Widget script
+  //   const script = document.createElement('script');
+  //   script.id = 'ze-snippet';
+  //   script.src =
+  //     'https://static.zdassets.com/ekr/snippet.js?key=YOUR_ZENDESK_KEY';
+  //   script.async = true;
+  //   document.body.appendChild(script);
+
+  //   // Clean up on component unmount
+  //   return () => {
+  //     // Optional: Remove the script when component unmounts
+  //     if (document.getElementById('ze-snippet')) {
+  //       document.body.removeChild(document.getElementById('ze-snippet'));
+  //     }
+  //   };
+  // }, []);
+
+  // // Function to open the widget
+  // const openWidget = () => {
+  //   if (window.zE) {
+  //     window.zE('widget', 'open');
+  //     setIsWidgetOpen(true);
+  //   }
+  // };
+
+  // // Function to close the widget
+  // const closeWidget = () => {
+  //   if (window.zE) {
+  //     window.zE('widget', 'close');
+  //     setIsWidgetOpen(false);
+  //   }
+  // };
+
+  if (!isOpen) {
+    return (
+      <button className='widget-button' onClick={() => setIsOpen(true)}>
+        <img
+          src={message_regular}
+          alt='open widget'
+          className='open-button-icon'
+        />
+      </button>
+    );
+  }
 
   return (
     <div className='widget-container'>
@@ -496,7 +533,8 @@ export function Chat(props: IChat) {
 
               <button
                 className={`chat-with-us`}
-                onClick={() => sendUserDetails({ email, name })}
+                // onClick={() => sendUserDetails({ email, name })}
+                onClick={() => openWidget}
               >
                 <span className='chat-question-text'>Chat with us</span>
                 <img
