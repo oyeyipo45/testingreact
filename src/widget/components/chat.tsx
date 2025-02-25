@@ -534,7 +534,7 @@ export function Chat(props: IChat) {
               <button
                 className={`chat-with-us`}
                 // onClick={() => sendUserDetails({ email, name })}
-                onClick={() => openWidget}
+                // onClick={() => openWidget}
               >
                 <span className='chat-question-text'>Chat with us</span>
                 <img
