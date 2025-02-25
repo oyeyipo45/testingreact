@@ -14,12 +14,13 @@ import {
 import axios from 'axios';
 import * as Yup from 'yup';
 import DOMPurify from 'dompurify';
+import { nanoid } from 'nanoid';
 
 interface IChat {
   setdisplayInView: (value: string) => void;
 }
 
-interface IMessage {
+export interface IMessage {
   sender: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content: any;
@@ -49,8 +50,14 @@ function getFirstCharacterOfFirstWord(sentence: string) {
 
 export function Chat(props: IChat) {
   const { setdisplayInView } = props;
-  const { isOpen, setIsOpen, userEmail, setUserEmail } =
-    useContext(WidgetContext);
+  const {
+    isOpen,
+    setIsOpen,
+    userEmail,
+    setUserEmail,
+    conversation,
+    setConversation,
+  } = useContext(WidgetContext);
 
   console.log(userEmail, 'userEmail');
 
@@ -128,11 +135,12 @@ export function Chat(props: IChat) {
 
     // Add user message
     const userMessage = {
-      id: Math.random(),
+      id: nanoid(),
       content: inputText,
       sender: 'user',
     };
 
+    setConversation((prev: IMessage[]) => [...prev, userMessage]);
     setMessages((prev: IMessage[]) => [...prev, userMessage]);
     setInputText('');
     setIsLoading(true);
@@ -161,13 +169,14 @@ export function Chat(props: IChat) {
       console.log(response, 'response');
 
       const botMessage = {
-        id: Math.random(),
+        id: nanoid(),
         content: response,
         sender: 'bot',
       };
       setIsLoading(false);
 
       setMessages((prev: IMessage[]) => [...prev, botMessage]);
+      setConversation((prev: IMessage[]) => [...prev, botMessage]);
 
       return data; // Adjust based on your API response structure
     } catch (error) {
@@ -179,7 +188,7 @@ export function Chat(props: IChat) {
     // setTimeout(() => {
     //   setIsLoading(false);
     //   const botMessage = {
-    //     id: Math.random(),
+    //     id: nanoid(),
     //     content: apiResponse,
     //     sender: 'bot',
     //   };
@@ -269,6 +278,7 @@ export function Chat(props: IChat) {
   ];
 
   console.log(messages, 'messages');
+  console.log(conversation, 'conversation');
 
   const [isWidgetOpen, setIsWidgetOpen] = useState(false);
 
@@ -375,7 +385,7 @@ export function Chat(props: IChat) {
 
         <div className='cover'>
           <div className='messages-container'>
-            {messages.map((message: IMessage) => (
+            {conversation.map((message: IMessage) => (
               <div className='' key={message.id}>
                 {' '}
                 {message.sender === 'user' && (
@@ -413,16 +423,26 @@ export function Chat(props: IChat) {
                                       <div className='product-message'>
                                         {' '}
                                         <div className='product-details-container'>
-                                          <span>{product.name}</span>
-                                          <p
-                                            className='truncate'
-                                            dangerouslySetInnerHTML={{
-                                              __html: DOMPurify.sanitize(
-                                                product.description,
-                                              ),
-                                            }}
-                                          />
-                                          <span>{product.price}</span>
+                                          <div>
+                                            <span>Name</span>
+                                            <span>{product.name}</span>
+                                          </div>
+
+                                          <div>
+                                            <span>Description</span>
+                                            <p
+                                              className='truncate'
+                                              dangerouslySetInnerHTML={{
+                                                __html: DOMPurify.sanitize(
+                                                  product.description,
+                                                ),
+                                              }}
+                                            />
+                                          </div>
+                                          <div>
+                                            <span>Price</span>
+                                            <span>{product.price}</span>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
