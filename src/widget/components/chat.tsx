@@ -91,6 +91,8 @@ export function Chat(props: IChat) {
   const sendUserDetails = async (data: IUser) => {
     const { email, name } = data;
 
+    console.log(data, 'dmcv dd');
+
     setUserEmail(email.trim());
     setisUpdatingUserDetails(true);
     setInitials(name);
@@ -533,8 +535,7 @@ export function Chat(props: IChat) {
 
               <button
                 className={`chat-with-us`}
-                // onClick={() => sendUserDetails({ email, name })}
-                // onClick={() => openWidget}
+                onClick={() => sendUserDetails({ email, name })}
               >
                 <span className='chat-question-text'>Chat with us</span>
                 <img
