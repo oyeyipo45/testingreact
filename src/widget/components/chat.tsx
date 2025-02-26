@@ -39,10 +39,11 @@ export const cssAppliedContent = (body: any, fullDescription?: boolean) => `
         p {
           line-height: 20px;
           font-size: 16px;
-          font-weight: 500;
+          font-weight: 400;
           letter-spacing: -0.14px
           padding:0px;
           margin : 0px;
+          font-familty: 'Montserrat'
         }
         
       
@@ -499,7 +500,7 @@ export function Chat(props: IChat) {
                                                 </span>
                                               </div>
                                               <div className='product-item'>
-                                                <span className='price-text'>
+                                                <span className='price-tex'>
                                                   {product.price} USD
                                                 </span>
                                               </div>
@@ -508,7 +509,7 @@ export function Chat(props: IChat) {
 
                                           <div className='product-item'>
                                             <span
-                                              className='truncate'
+                                              className=''
                                               dangerouslySetInnerHTML={{
                                                 __html: cssAppliedContent(
                                                   shortDescription(
