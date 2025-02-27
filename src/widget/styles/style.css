@@ -187,6 +187,27 @@
   @apply object-cover rounded-xl aspect-square md:w-[128px] md:h-[128px] w-[128px] h-[128px];
 }
 
+.conversation-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+  width: 100%;
+  color: #4C7B98;
+  font-family: Montserrat;
+  font-size: 18px;
+  word-spacing: 2px;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.conversation-loading-text{
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 @media only screen and (min-width: 768px) {
   /* .widget-container {
     @apply fixed bottom-5 right-5 w-[400px] h-[803px] bg-white border border-gray-200 rounded-lg 

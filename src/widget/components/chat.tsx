@@ -40,26 +40,6 @@ interface IUser {
   name: string;
 }
 
-export const cssAppliedContent = (body: any, fullDescription?: boolean) => `
-<div>
-      <style>
-        p {
-          line-height: 20px;
-          font-size: 16px;
-          font-weight: 400;
-          letter-spacing: -0.14px
-          padding:0px;
-          margin : 0px;
-          font-familty: 'Montserrat'
-        }
-        
-      
-    
-      </style>
-      ${body}
-    <div>
-    `;
-
 function getFirstCharacterOfFirstWord(sentence: string) {
   if (typeof sentence !== 'string' || sentence.length === 0) {
     return ''; // Handle empty or non-string input
@@ -85,6 +65,7 @@ export function Chat(props: IChat) {
     setConversation,
     userId,
     sessionId,
+    isFetchingPreviousConversation,
   } = useContext(WidgetContext);
 
   console.log(userId, 'userId');
@@ -294,8 +275,6 @@ export function Chat(props: IChat) {
     }
   };
 
-  // TODO : REMOVE AXIOS
-
   const options = [
     {
       value: 'Turn off notification',
@@ -306,43 +285,19 @@ export function Chat(props: IChat) {
 
   const [isWidgetOpen, setIsWidgetOpen] = useState(false);
 
-  // Initialize Zendesk Widget
-  // useEffect(() => {
-  //   // Add Zendesk Widget script
-  //   const script = document.createElement('script');
-  //   script.id = 'ze-snippet';
-  //   script.src =
-  //     'https://static.zdassets.com/ekr/snippet.js?key=YOUR_ZENDESK_KEY';
-  //   script.async = true;
-  //   document.body.appendChild(script);
+  // Function to open the widget
+  const openWidget = () => {
+    setIsOpen(false);
+    (window as any).zE('messenger', 'show');
+    (window as any).zE('messenger', 'open');
 
-  //   // Clean up on component unmount
-  //   return () => {
-  //     // Optional: Remove the script when component unmounts
-  //     if (document.getElementById('ze-snippet')) {
-  //       document.body.removeChild(document.getElementById('ze-snippet'));
-  //     }
-  //   };
-  // }, []);
+    // const widgetButton = document.getElementsByClassName('.widget-button');
 
-  // // Function to open the widget
-  // const openWidget = () => {
-  //   if (window.zE) {
-  //     window.zE('widget', 'open');
-  //     setIsWidgetOpen(true);
-  //   }
-  // };
-
-  // // Function to close the widget
-  // const closeWidget = () => {
-  //   if (window.zE) {
-  //     window.zE('widget', 'close');
-  //     setIsWidgetOpen(false);
-  //   }
-  // };
+    // widgetButton.style.display = 'none';
+  };
 
   console.log(conversation, 'conversation');
-  
+
   if (!isOpen) {
     return (
       <button className='widget-button' onClick={() => setIsOpen(true)}>
@@ -409,6 +364,20 @@ export function Chat(props: IChat) {
           </div>
         </div>
 
+        {isFetchingPreviousConversation && (
+          <div className='conversation-loading'>
+            <div className='conversation-loading-text'>
+              <span>Loading previous conversation </span>
+              <div className='loading-container'>
+                <div className='message-indicator'>
+                  <div className='line'></div>
+                  <div className='line'></div>
+                  <div className='line'></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
         {conversation.length > 0 && (
           <div className='cover'>
             <div className='messages-container'>
@@ -485,21 +454,6 @@ export function Chat(props: IChat) {
                                         </div>
 
                                         <div className='product-item'>
-                                          {/* <span
-                                            className=''
-                                            dangerouslySetInnerHTML={{
-                                              __html: cssAppliedContent(
-                                                shortDescription(
-                                                  DOMPurify.sanitize(
-                                                    product.description.substring(
-                                                      0,
-                                                      150,
-                                                    ) + '...',
-                                                  ),
-                                                ),
-                                              ),
-                                            }}
-                                          /> */}
                                           <MarkdownPreview
                                             style={{
                                               padding: '4px',
@@ -508,10 +462,12 @@ export function Chat(props: IChat) {
                                               fontWeight: 400,
                                               textAlign: 'justify',
                                             }}
-                                            source={ product.description.substring(
-                                                      0,
-                                                      150,
-                                                    ) + '...'}
+                                            source={
+                                              product.description.substring(
+                                                0,
+                                                150,
+                                              ) + '...'
+                                            }
                                             wrapperElement={{
                                               'data-color-mode': 'light',
                                             }}
@@ -558,11 +514,15 @@ export function Chat(props: IChat) {
                 type='text'
                 placeholder='Type here..'
                 value={inputText}
-                disabled={isLoading}
+                disabled={isLoading || isFetchingPreviousConversation}
                 onChange={(e) => setInputText(e.target.value)}
               />
             </div>
-            <button type='submit' className='send-message'>
+            <button
+              type='submit'
+              className='send-message'
+              disabled={isFetchingPreviousConversation}
+            >
               <div className='send-message-icon'>
                 <img src={rotated_send_icon} alt='send' />
               </div>
@@ -649,7 +609,7 @@ export function Chat(props: IChat) {
                 <img
                   src={green_send_icon}
                   alt='send message'
-                  //   onClick={() => setdisplayInView('chat')}
+                  onClick={() => openWidget()}
                 />
               </div>
             </div>
