@@ -15,7 +15,13 @@ import axios from 'axios';
 import * as Yup from 'yup';
 import DOMPurify from 'dompurify';
 import { nanoid } from 'nanoid';
-import { shortDescription } from '../../utils';
+import {
+  BASE_URL,
+  getDetails,
+  SetDetails,
+  shortDescription,
+} from '../../utils';
+import MarkdownPreview from '@uiw/react-markdown-preview';
 
 interface IChat {
   setdisplayInView: (value: string) => void;
@@ -24,8 +30,9 @@ interface IChat {
 export interface IMessage {
   sender: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  content: any;
+  object: any;
   id: string;
+  type: string;
 }
 
 interface IUser {
@@ -53,8 +60,6 @@ export const cssAppliedContent = (body: any, fullDescription?: boolean) => `
     <div>
     `;
 
-const BASE_URL = 'https://authenteak-backend.contextdata.dev';
-
 function getFirstCharacterOfFirstWord(sentence: string) {
   if (typeof sentence !== 'string' || sentence.length === 0) {
     return ''; // Handle empty or non-string input
@@ -78,15 +83,21 @@ export function Chat(props: IChat) {
     setUserEmail,
     conversation,
     setConversation,
+    userId,
+    sessionId,
   } = useContext(WidgetContext);
 
-  const booleanEmail = Boolean(!userEmail);
+  console.log(userId, 'userId');
+
+  const booleanUserId = Boolean(!userId);
 
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const [errorUpdatingUser, seterrorUpdatingUser] = useState('');
 
   const [isUpdatingUserDetails, setisUpdatingUserDetails] =
     useState<boolean>(false);
@@ -96,10 +107,8 @@ export function Chat(props: IChat) {
   const [name, setName] = useState<string>('');
   const [initials, setInitials] = useState<string>('');
   const [email, setEmail] = useState<string>('');
-  const [isNameModalOpen, setIsNameModalOpen] = useState(booleanEmail);
-
-  const [userId, setUserId] = useState<string>('');
-  const [sessionId, setSessionId] = useState<string>('');
+  const [isNameModalOpen, setIsNameModalOpen] = useState(booleanUserId);
+  const [userSessionId, setUserSessionId] = useState('');
 
   const Avatar = getFirstCharacterOfFirstWord(initials);
 
@@ -109,6 +118,7 @@ export function Chat(props: IChat) {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+  console.log(messages, 'messages');
 
   const sendUserDetails = async (data: IUser) => {
     const { email, name } = data;
@@ -128,8 +138,9 @@ export function Chat(props: IChat) {
 
       const { user_id, session_id } = data;
 
-      setSessionId(session_id);
-      setUserId(user_id);
+      SetDetails('userId', user_id);
+      SetDetails('sessionId', session_id);
+      setUserSessionId(session_id);
       setIsNameModalOpen(false);
 
       return res.data;
@@ -147,8 +158,9 @@ export function Chat(props: IChat) {
     // Add user message
     const userMessage = {
       id: nanoid(),
-      content: inputText,
+      object: { text: inputText },
       sender: 'user',
+      type: 'text',
     };
 
     setConversation((prev: IMessage[]) => [...prev, userMessage]);
@@ -158,7 +170,7 @@ export function Chat(props: IChat) {
 
     try {
       const req = await fetch(
-        `${BASE_URL}/chats/messages?session=${sessionId}`,
+        `${BASE_URL}/chats/messages?session=${sessionId || userSessionId}`,
         {
           method: 'POST',
           headers: {
@@ -179,15 +191,19 @@ export function Chat(props: IChat) {
 
       console.log(response, 'response');
 
-      const botMessage = {
-        id: nanoid(),
-        content: response,
-        sender: 'bot',
-      };
+      const mappedResponse = response.map((singleMessage: any) => {
+        return {
+          id: nanoid(),
+          object: singleMessage.object,
+          sender: 'chatbot',
+          type: singleMessage.type,
+        };
+      });
+
       setIsLoading(false);
 
-      setMessages((prev: IMessage[]) => [...prev, botMessage]);
-      setConversation((prev: IMessage[]) => [...prev, botMessage]);
+      setMessages((prev: IMessage[]) => [...prev, ...mappedResponse]);
+      setConversation((prev: IMessage[]) => [...prev, ...mappedResponse]);
 
       return data; // Adjust based on your API response structure
     } catch (error) {
@@ -325,6 +341,8 @@ export function Chat(props: IChat) {
   //   }
   // };
 
+  console.log(conversation, 'conversation');
+  
   if (!isOpen) {
     return (
       <button className='widget-button' onClick={() => setIsOpen(true)}>
@@ -391,167 +409,141 @@ export function Chat(props: IChat) {
           </div>
         </div>
 
-        <div className='cover'>
-          <div className='messages-container'>
-            {conversation.map((message: IMessage) => (
-              <div className='' key={message.id}>
-                {' '}
-                {message.sender === 'user' && (
-                  <div className='user-message-container'>
-                    <div className='user-message'> {message.content}</div>{' '}
-                  </div>
-                )}
-                {message.sender === 'bot' && (
-                  <div>
-                    {/* <div className='bot-message-container'>
-                      <div className='bot-message'> {message.content}</div>{' '}
-                    </div>{' '} */}
-
-                    <div className='bot-spacing'>
-                      {message?.content?.map((data: any, index: number) => (
-                        <div className='message-inners' key={index}>
-                          {' '}
-                          {data.type === 'text' && (
+        {conversation.length > 0 && (
+          <div className='cover'>
+            <div className='messages-container'>
+              {conversation.map((message: IMessage) => (
+                <div className='' key={message.id}>
+                  {' '}
+                  {message.sender === 'user' && (
+                    <div className='user-message-container'>
+                      <div className='user-message'> {message.object.text}</div>{' '}
+                    </div>
+                  )}
+                  {message.sender === 'chatbot' && (
+                    <div>
+                      <div className='bot-spacing'>
+                        {' '}
+                        {message.type === 'text' && (
+                          <>
                             <div className='bot-message-container'>
                               <div className='bot-message'>
                                 {' '}
-                                {data?.object?.text}
+                                <MarkdownPreview
+                                  style={{
+                                    padding: '4px',
+                                    margin: '0px',
+                                    backgroundColor: '#F5F5F5',
+                                    fontWeight: 400,
+                                  }}
+                                  source={message?.object?.text}
+                                  wrapperElement={{
+                                    'data-color-mode': 'light',
+                                  }}
+                                />
                               </div>{' '}
                             </div>
-                          )}
-                          {data.type === 'products' && (
-                            <div className='products-container'>
-                              {data?.object?.products.length > 0 &&
-                                data?.object?.products?.map((product: any) => (
-                                  // <div
-                                  //   className='product-body'
-                                  //   key={product.id}
-                                  // >
-                                  //   {' '}
-                                  //   <div className='bot-message-container'>
-                                  //     <div className='product-message'>
-                                  //       {' '}
-                                  //       <div className='product-details-container'>
-                                  //         <div className='product-item'>
-                                  //           <span className='heading'>
-                                  //             Name
-                                  //           </span>
-                                  //           <span>{product.name}</span>
-                                  //         </div>
-
-                                  //         <div className='product-item'>
-                                  //           <span className='heading'>
-                                  //             Description
-                                  //           </span>
-                                  //           <span
-                                  //             className='truncate'
-                                  //             dangerouslySetInnerHTML={{
-                                  //               __html: cssAppliedContent(
-                                  //                 shortDescription(
-                                  //                   DOMPurify.sanitize(
-                                  //                     product.description,
-                                  //                   ),
-                                  //                 ),
-                                  //               ),
-                                  //             }}
-                                  //           />
-                                  //         </div>
-                                  //         <div className='product-item'>
-                                  //           <span className='heading'>
-                                  //             Price
-                                  //           </span>
-                                  //           <span>{product.price}</span>
-                                  //         </div>
-                                  //       </div>
-                                  //     </div>
-                                  //   </div>
-                                  // </div>
-
-                                  <div
-                                    className='product-body'
-                                    key={product.id}
-                                  >
-                                    {' '}
-                                    <div className='bot-message-container'>
-                                      <a
-                                        className='product-message'
-                                        href={`https://authenteak.com/${product.url}`}
-                                        target='_blank'
-                                        rel='noreferrer'
-                                      >
-                                        <div className='product-details-container'>
-                                          <div className='product-image-container'>
-                                            <div className='product-image-parent'>
-                                              <div>
-                                                <img
-                                                  src={product.primary_image}
-                                                  alt='product'
-                                                  className='product-image'
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className='product-things'>
-                                              <div className='product-item'>
-                                                <span className='truncate-overflo'>
-                                                  {product.name.substring(
-                                                    0,
-                                                    50,
-                                                  ) + '...'}
-                                                </span>
-                                              </div>
-                                              <div className='product-item'>
-                                                <span className='price-tex'>
-                                                  {product.price} USD
-                                                </span>
-                                              </div>
+                          </>
+                        )}
+                        {message.type === 'products' && (
+                          <div className='products-container'>
+                            {message?.object?.products.length > 0 &&
+                              message?.object?.products?.map((product: any) => (
+                                <div className='product-body' key={product.id}>
+                                  {' '}
+                                  <div className='bot-message-container'>
+                                    <a
+                                      className='product-message'
+                                      href={`https://authenteak.com/${product.url}`}
+                                      target='_blank'
+                                      rel='noreferrer'
+                                    >
+                                      <div className='product-details-container'>
+                                        <div className='product-image-container'>
+                                          <div className='product-image-parent'>
+                                            <div>
+                                              <img
+                                                src={product.primary_image}
+                                                alt='product'
+                                                className='product-image'
+                                              />
                                             </div>
                                           </div>
-
-                                          <div className='product-item'>
-                                            <span
-                                              className=''
-                                              dangerouslySetInnerHTML={{
-                                                __html: cssAppliedContent(
-                                                  shortDescription(
-                                                    DOMPurify.sanitize(
-                                                      product.description.substring(
-                                                        0,
-                                                        150,
-                                                      ) + '...',
-                                                    ),
-                                                  ),
-                                                ),
-                                              }}
-                                            />
+                                          <div className='product-things'>
+                                            <div className='product-item'>
+                                              <span className='truncate-overflo'>
+                                                {product.name.substring(0, 50) +
+                                                  '...'}
+                                              </span>
+                                            </div>
+                                            <div className='product-item'>
+                                              <span className='price-tex'>
+                                                {product.price} USD
+                                              </span>
+                                            </div>
                                           </div>
                                         </div>
-                                      </a>
-                                    </div>
+
+                                        <div className='product-item'>
+                                          {/* <span
+                                            className=''
+                                            dangerouslySetInnerHTML={{
+                                              __html: cssAppliedContent(
+                                                shortDescription(
+                                                  DOMPurify.sanitize(
+                                                    product.description.substring(
+                                                      0,
+                                                      150,
+                                                    ) + '...',
+                                                  ),
+                                                ),
+                                              ),
+                                            }}
+                                          /> */}
+                                          <MarkdownPreview
+                                            style={{
+                                              padding: '4px',
+                                              margin: '0px',
+                                              backgroundColor: '#F5F5F5',
+                                              fontWeight: 400,
+                                              textAlign: 'justify',
+                                            }}
+                                            source={ product.description.substring(
+                                                      0,
+                                                      150,
+                                                    ) + '...'}
+                                            wrapperElement={{
+                                              'data-color-mode': 'light',
+                                            }}
+                                          />
+                                        </div>
+                                      </div>
+                                    </a>
                                   </div>
-                                ))}
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                      <div ref={messagesEndRef} />
+                                </div>
+                              ))}
+                          </div>
+                        )}
+                        <div ref={messagesEndRef} />
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+              {isLoading && (
+                <div className='loading-container'>
+                  <div className='loading-inner-container'>
+                    <div className='message-indicator'>
+                      <div className='line'></div>
+                      <div className='line'></div>
+                      <div className='line'></div>
                     </div>
                   </div>
-                )}
-              </div>
-            ))}
-            {isLoading && (
-              <div className='loading-container'>
-                <div className='loading-inner-container'>
-                  <div className='message-indicator'>
-                    <div className='line'></div>
-                    <div className='line'></div>
-                    <div className='line'></div>
-                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <div>
@@ -642,11 +634,15 @@ export function Chat(props: IChat) {
                 onClick={() => sendUserDetails({ email, name })}
               >
                 <span className='chat-question-text'>Chat with us</span>
-                <img
-                  src={white_send_icon}
-                  alt='send message'
-                  //   onClick={() => setdisplayInView('chat')}
-                />
+                {isUpdatingUserDetails ? (
+                  <span className='loader'></span>
+                ) : (
+                  <img
+                    src={white_send_icon}
+                    alt='send message'
+                    //   onClick={() => setdisplayInView('chat')}
+                  />
+                )}
               </button>
               <div className='speak-with-agent'>
                 <span className='agent-question-text'>Speak to an agent</span>

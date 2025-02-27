@@ -9,6 +9,8 @@ interface WidgetContextType {
   setConversation: (data: IMessage[]) => void;
   clientKey: string;
   conversation: IMessage[];
+  userId: string;
+  sessionId: string;
 }
 
 export const WidgetContext = createContext<WidgetContextType>({
@@ -25,4 +27,6 @@ export const WidgetContext = createContext<WidgetContextType>({
       id: '',
     },
   ],
+  userId: '',
+  sessionId: '',
 });

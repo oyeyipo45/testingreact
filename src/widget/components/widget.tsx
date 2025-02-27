@@ -17,6 +17,7 @@ import {
 import { MdEmail } from 'react-icons/md';
 import { TiHome } from 'react-icons/ti';
 import { IoChatbubbleEllipsesSharp } from 'react-icons/io5';
+import { BASE_URL } from '../../utils';
 
 interface IWidget {
   setdisplayInView: (value: string) => void;
@@ -30,7 +31,11 @@ enum IHomeComponents {
 
 export function Widget(props: IWidget) {
   const { setdisplayInView } = props;
-  const { isOpen, setIsOpen } = useContext(WidgetContext);
+  const { isOpen, setIsOpen, setConversation, userId, sessionId } =
+    useContext(WidgetContext);
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<boolean | null>(false);
 
   const [activeTab, setActiveTab] = useState<IHomeComponents>(
     IHomeComponents.HOME,
@@ -62,6 +67,52 @@ export function Widget(props: IWidget) {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
+  }, []);
+
+  useEffect(() => {
+    if (userId && sessionId) {
+      console.log(userId, 'userId');
+
+      const fetchData = async () => {
+        setLoading(true); // Set loading to true before the request
+
+        try {
+          const response = await fetch(
+            `${BASE_URL}/chats/messages?session=${sessionId}`,
+          ); // Replace with your API endpoint
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const jsonData = await response.json();
+
+          const messages = jsonData?.data?.messages;
+
+          const mappedmessages = messages.map((message: any) => {
+            const sender = message.sender === 'user' ? 'user' : 'chatbot';
+            return {
+              id: message.id,
+              object: message.object,
+              sender: sender,
+              type : message.type
+            };
+          });
+
+          console.log(messages, 'messages');
+
+          setConversation(mappedmessages);
+          setError(null); // Clear any previous errors on success
+        } catch (err: any) {
+          setError(err);
+          setConversation([]); // Clear data on error
+        } finally {
+          setLoading(false); // Set loading to false whether success or error
+        }
+      };
+
+      fetchData();
+    }
   }, []);
 
   interface IOptions {
