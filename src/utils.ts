@@ -18,5 +18,3 @@ export const SetDetails = (name: string, value: string) => {
 };
 
 export const BASE_URL = 'https://authenteak-backend.contextdata.dev';
-
-const { ZENDESK_KEY } = import.meta.env;
