@@ -8,12 +8,6 @@ import {
   rotated_send_icon,
   white_send_icon,
 } from '../../assets';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faComment,
-  faEnvelope,
-  faHouse,
-} from '@fortawesome/free-solid-svg-icons';
 import { MdEmail } from 'react-icons/md';
 import { TiHome } from 'react-icons/ti';
 import { IoChatbubbleEllipsesSharp } from 'react-icons/io5';
@@ -31,8 +25,15 @@ enum IHomeComponents {
 
 export function Widget(props: IWidget) {
   const { setdisplayInView } = props;
-  const { isOpen, setIsOpen, setConversation, userId, sessionId } =
-    useContext(WidgetContext);
+  const {
+    isOpen,
+    setIsOpen,
+    setConversation,
+    userId,
+    sessionId,
+    isFetchingPreviousConversation,
+    setIsFetchingPreviousConversation,
+  } = useContext(WidgetContext);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<boolean | null>(false);
@@ -72,7 +73,7 @@ export function Widget(props: IWidget) {
   useEffect(() => {
     if (userId && sessionId) {
       console.log(userId, 'userId');
-
+      setIsFetchingPreviousConversation(true);
       const fetchData = async () => {
         setLoading(true); // Set loading to true before the request
 
@@ -95,18 +96,21 @@ export function Widget(props: IWidget) {
               id: message.id,
               object: message.object,
               sender: sender,
-              type : message.type
+              type: message.type,
             };
           });
 
           console.log(messages, 'messages');
 
           setConversation(mappedmessages);
+          setIsFetchingPreviousConversation(false);
           setError(null); // Clear any previous errors on success
         } catch (err: any) {
+          setIsFetchingPreviousConversation(false);
           setError(err);
           setConversation([]); // Clear data on error
         } finally {
+          setIsFetchingPreviousConversation(false);
           setLoading(false); // Set loading to false whether success or error
         }
       };

@@ -16,14 +16,14 @@ export function WidgetContainer({ clientKey }: WidgetContainerProps) {
   const [conversation, setConversation] = useState<IMessage[]>([]);
   const [userId, setUserId] = useState<string>('');
   const [sessionId, setSessionId] = useState<string>('');
+  const [isFetchingPreviousConversation, setIsFetchingPreviousConversation] =
+    useState(false);
 
   useEffect(() => {
     setMounted(true);
     setUserId(getDetails('userId') as string);
     setSessionId(getDetails('sessionId') as string);
   }, []);
-
- 
 
   if (!mounted) {
     return null;
@@ -41,6 +41,8 @@ export function WidgetContainer({ clientKey }: WidgetContainerProps) {
         setConversation,
         userId,
         sessionId,
+        isFetchingPreviousConversation,
+        setIsFetchingPreviousConversation,
       }}
     >
       {displayInView === 'home' && (

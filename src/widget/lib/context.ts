@@ -11,6 +11,8 @@ interface WidgetContextType {
   conversation: IMessage[];
   userId: string;
   sessionId: string;
+  isFetchingPreviousConversation: boolean;
+  setIsFetchingPreviousConversation: (isOpen: boolean) => void;
 }
 
 export const WidgetContext = createContext<WidgetContextType>({
@@ -23,10 +25,13 @@ export const WidgetContext = createContext<WidgetContextType>({
   conversation: [
     {
       sender: '',
-      content: '',
+      object: '',
       id: '',
+      type: '',
     },
   ],
   userId: '',
   sessionId: '',
+  isFetchingPreviousConversation: false,
+  setIsFetchingPreviousConversation: () => undefined,
 });
