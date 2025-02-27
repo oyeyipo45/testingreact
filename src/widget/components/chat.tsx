@@ -288,8 +288,10 @@ export function Chat(props: IChat) {
   // Function to open the widget
   const openWidget = () => {
     setIsOpen(false);
-    (window as any).zE('messenger', 'show');
-    (window as any).zE('messenger', 'open');
+    if ((window as any).zE) {
+      (window as any).zE('messenger', 'show');
+      (window as any).zE('messenger', 'open');
+    }
 
     // const widgetButton = document.getElementsByClassName('.widget-button');
 
