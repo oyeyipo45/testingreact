@@ -638,7 +638,7 @@ export function Chat(props: IChat) {
 
               <button
                 className={`chat-with-us`}
-                disabled={isUpdatingUserDetails}
+                disabled={isUpdatingUserDetails || !email}
                 onClick={() => sendUserDetails({ email, name })}
               >
                 <span className='chat-question-text'>Chat with us</span>
