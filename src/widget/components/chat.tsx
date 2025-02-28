@@ -90,6 +90,7 @@ export function Chat(props: IChat) {
   const [email, setEmail] = useState<string>('');
   const [isNameModalOpen, setIsNameModalOpen] = useState(booleanUserId);
   const [userSessionId, setUserSessionId] = useState('');
+  const [hideButton, setHideButton] = useState(false);
 
   const Avatar = getFirstCharacterOfFirstWord(initials);
 
@@ -288,14 +289,8 @@ export function Chat(props: IChat) {
   // Function to open the widget
   const openWidget = () => {
     setIsOpen(false);
-    if ((window as any).zE) {
-      (window as any).zE('messenger', 'show');
-      (window as any).zE('messenger', 'open');
-    }
-
-    // const widgetButton = document.getElementsByClassName('.widget-button');
-
-    // widgetButton.style.display = 'none';
+    (window as any).zE('messenger', 'show');
+    (window as any).zE('messenger', 'open');
   };
 
   console.log(conversation, 'conversation');

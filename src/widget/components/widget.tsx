@@ -5,6 +5,7 @@ import {
   close_icon,
   green_arrow_right,
   hamburger_icon,
+  message_regular,
   rotated_send_icon,
   white_send_icon,
 } from '../../assets';
@@ -135,7 +136,11 @@ export function Widget(props: IWidget) {
   if (!isOpen) {
     return (
       <button className='widget-button' onClick={() => setIsOpen(true)}>
-        <img src={rotated_send_icon} alt='open widget' />
+        <img
+          src={message_regular}
+          alt='open widget'
+          className='open-button-icon'
+        />
       </button>
     );
   }

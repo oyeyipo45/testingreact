@@ -262,7 +262,7 @@
   }
 
   .open-button-icon {
-    @apply h-20 w-20;
+    @apply h-8 w-8;
   }
 
   .online-text {
@@ -615,6 +615,12 @@
   /* .widget-container {
     @apply fixed left-0 top-0 w-[100%] h-[100%] bg-white z-[9999] box-border flex flex-col gap-1;
   } */
+
+
+  .open-button-icon {
+    @apply h-6 w-6;
+  }
+
 
   .widget-container {
     position: fixed;
