@@ -208,6 +208,21 @@
   gap: 1rem;
 }
 
+.user-details-container {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+
+.user-details-error {
+  color: #ef2e2e;
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 160%;
+    letter-spacing: 0.2px;
+}
+
 @media only screen and (min-width: 768px) {
   /* .widget-container {
     @apply fixed bottom-5 right-5 w-[400px] h-[803px] bg-white border border-gray-200 rounded-lg 
@@ -544,9 +559,8 @@
     display: flex;
     gap: 8px;
     align-items: center;
-    padding-left: 20px;
-    margin-top: 24px;
-    margin-bottom: 12px;
+    margin-top: 16px;
+    margin-bottom: 16px;
   }
 
   .newsletter-signup-text {
@@ -972,9 +986,8 @@
     display: flex;
     gap: 8px;
     align-items: center;
-    padding-left: 20px;
-    margin-top: 24px;
-    margin-bottom: 12px;
+    margin-top: 16px;
+    margin-bottom: 16px;
   }
 
   .newsletter-signup-text {

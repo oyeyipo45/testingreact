@@ -96,6 +96,8 @@ export function Chat(props: IChat) {
 
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [userDetailsError, setUserDetailsError] = useState(false);
+  const [userDetailsErrorText, setUserDetailsErrorText] = useState('');
 
   useEffect(() => {
     scrollToBottom();
@@ -104,6 +106,8 @@ export function Chat(props: IChat) {
 
   const sendUserDetails = async (data: IUser) => {
     const { email, name } = data;
+
+    setUserDetailsError(false);
 
     setUserEmail(email.trim());
     setisUpdatingUserDetails(true);
@@ -126,10 +130,11 @@ export function Chat(props: IChat) {
       setIsNameModalOpen(false);
 
       return res.data;
-    } catch (error) {
+    } catch (error: any) {
       setisUpdatingUserDetails(false);
-      console.error('Error sending message:', error);
-      return 'Sorry, there was an error processing your request.';
+      setUserDetailsError(true);
+      const errorMessage = error?.response?.data?.message;
+      setUserDetailsErrorText(errorMessage);
     }
   };
 
@@ -262,6 +267,7 @@ export function Chat(props: IChat) {
   const handleEmailChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
+    setUserDetailsError(false);
     const enteredEmail = event.target.value;
     setEmail(enteredEmail.trim());
     try {
@@ -578,12 +584,20 @@ export function Chat(props: IChat) {
                 </div>
               </div>
 
-              <div className='newsletter-container'>
-                <input type='checkbox' />
-                <span className='newsletter-signup-text'>
-                  Sign up for our newsletter
-                </span>
-              </div>
+              {userDetailsError ? (
+                <div className='user-details-container'>
+                  <span className='user-details-error'>
+                    {userDetailsErrorText}
+                  </span>
+                </div>
+              ) : (
+                <div className='newsletter-container'>
+                  <input type='checkbox' />
+                  <span className='newsletter-signup-text'>
+                    Sign up for our newsletter
+                  </span>
+                </div>
+              )}
 
               <button
                 className={`chat-with-us`}
