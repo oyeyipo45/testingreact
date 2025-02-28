@@ -194,7 +194,7 @@
   gap: 8px;
   height: 100%;
   width: 100%;
-  color: #4C7B98;
+  color: #4c7b98;
   font-family: Montserrat;
   font-size: 18px;
   word-spacing: 2px;
@@ -202,25 +202,29 @@
   font-weight: 500;
 }
 
-.conversation-loading-text{
+.conversation-loading-text {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
 }
 
 .user-details-container {
-    margin-top: 16px;
-    margin-bottom: 16px;
-  }
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
 
 .user-details-error {
   color: #ef2e2e;
-    text-align: center;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 160%;
-    letter-spacing: 0.2px;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%;
+  letter-spacing: 0.2px;
+}
+
+.speak-to-agent-button {
+  @apply w-[230px] border-none py-2 bg-[#4C7B98] rounded-[8px] flex justify-center hover:bg-[#1a5270] hover:cursor-pointer items-center;
 }
 
 @media only screen and (min-width: 768px) {
@@ -272,12 +276,12 @@
   }
 
   .widget-button {
-    @apply fixed bottom-5 right-5 px-4 py-3.5 mt-1
+    @apply fixed bottom-4 right-4 px-4 py-3.5 mt-1
      bg-[#4C7B98] text-white border-none rounded-full cursor-pointer z-[9999];
   }
 
   .open-button-icon {
-    @apply h-8 w-8;
+    @apply h-[28px] w-[28px];
   }
 
   .online-text {
@@ -630,11 +634,9 @@
     @apply fixed left-0 top-0 w-[100%] h-[100%] bg-white z-[9999] box-border flex flex-col gap-1;
   } */
 
-
   .open-button-icon {
     @apply h-6 w-6;
   }
-
 
   .widget-container {
     position: fixed;
@@ -665,7 +667,7 @@
     flex: 1;
   }
   .widget-button {
-    @apply fixed bottom-5 right-5 px-4 py-3.5 mt-1 bg-[#4C7B98] text-white border-none rounded-full cursor-pointer z-[9999];
+    @apply fixed bottom-4 right-4 px-4 py-3.5 mt-1 bg-[#4C7B98] text-white border-none rounded-full cursor-pointer z-[9999];
   }
 
   .online-text {

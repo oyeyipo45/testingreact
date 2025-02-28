@@ -483,6 +483,18 @@ export function Chat(props: IChat) {
                               ))}
                           </div>
                         )}
+                        {message.type === 'action' && (
+                          <>
+                            <button
+                              className={`speak-to-agent-button`}
+                              onClick={() => openWidget()}
+                            >
+                              <span className='chat-question-text'>
+                                Click to speak to an agent
+                              </span>
+                            </button>
+                          </>
+                        )}
                         <div ref={messagesEndRef} />
                       </div>
                     </div>
