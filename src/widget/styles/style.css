@@ -222,8 +222,27 @@
   letter-spacing: 0.2px;
 }
 
+.message-input-textarea {
+  border-radius: 16px;
+  background-color: #f0f4f7;
+  width: 100%;
+  padding: 20px;
+  outline: none;
+  border: none;
+  font-size: 14px;
+  height: 300px;
+}
+
 .speak-to-agent-button {
   @apply w-[230px] border-none py-2 bg-[#4C7B98] rounded-[8px] flex justify-center hover:bg-[#1a5270] hover:cursor-pointer items-center;
+}
+
+.email-button-text {
+  @apply text-[18px] text-white font-bold tracking-[1.6];
+}
+
+.send-email-button {
+  @apply flex justify-center items-center bg-[#4C7B9A] rounded-full min-h-[60px] min-w-[60px] shadow-lg border-none opacity-70 pointer-events-none;
 }
 
 @media only screen and (min-width: 768px) {
@@ -293,6 +312,10 @@
 
   .widget-chat-header {
     @apply flex justify-between p-6;
+  }
+
+  .widget-chat-header-email {
+    @apply flex justify-end p-6;
   }
 
   .widget-chat-header-avatar {
@@ -679,6 +702,10 @@
 
   .widget-chat-header {
     @apply flex justify-between p-6;
+  }
+
+  .widget-chat-header-email {
+    @apply flex justify-end p-6;
   }
 
   .nav-icon-container {
@@ -1093,6 +1120,19 @@
 
 .widget-container {
   font-family: 'Montserrat' !important;
+}
+
+.email-container {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.email-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .loader {

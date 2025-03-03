@@ -338,6 +338,7 @@ export function Widget(props: IWidget) {
             onMouseEnter={() => setCurrentHover(IHomeComponents.EMAIL)}
             onMouseLeave={() => setCurrentHover(activeTab)}
             onClick={() => {
+              setdisplayInView('email');
               setActiveTab(IHomeComponents.EMAIL);
             }}
           >

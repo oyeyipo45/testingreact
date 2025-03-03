@@ -3,6 +3,7 @@ import { WidgetContext } from '../lib/context';
 import { Widget } from './widget';
 import { Chat, IMessage } from './chat';
 import { getDetails } from '../../utils';
+import { Email } from './email';
 
 interface WidgetContainerProps {
   clientKey: string;
@@ -49,6 +50,10 @@ export function WidgetContainer({ clientKey }: WidgetContainerProps) {
         <Widget setdisplayInView={setdisplayInView} />
       )}
       {displayInView === 'chat' && <Chat setdisplayInView={setdisplayInView} />}
+
+      {displayInView === 'email' && (
+        <Email setdisplayInView={setdisplayInView} />
+      )}
     </WidgetContext.Provider>
   );
 }
