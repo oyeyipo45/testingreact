@@ -13,15 +13,9 @@ import {
 } from '../../assets';
 import axios from 'axios';
 import * as Yup from 'yup';
-import DOMPurify from 'dompurify';
 import { nanoid } from 'nanoid';
-import {
-  BASE_URL,
-  getDetails,
-  SetDetails,
-  shortDescription,
-} from '../../utils';
 import MarkdownPreview from '@uiw/react-markdown-preview';
+import { BASE_URL, SetDetails } from '../../utils';
 
 interface IChat {
   setdisplayInView: (value: string) => void;
@@ -108,13 +102,11 @@ export function Chat(props: IChat) {
     const { email, name } = data;
 
     setUserDetailsError(false);
-
     setUserEmail(email.trim());
     setisUpdatingUserDetails(true);
     setInitials(name);
-    const body = email ? { email, name } : {};
     try {
-      const res = await axios.post(`${BASE_URL}/users`, { ...body });
+      const res = await axios.post(`${BASE_URL}/users`, { email, name });
 
       if (res) {
         setisUpdatingUserDetails(false);
@@ -297,6 +289,20 @@ export function Chat(props: IChat) {
     setIsOpen(false);
     (window as any).zE('messenger', 'show');
     (window as any).zE('messenger', 'open');
+    // (window as any).zE('webWidget', 'prefill', {
+    //   name: {
+    //     value: name,
+    //     readOnly: true,
+    //   },
+    //   email: {
+    //     value: email,
+    //     readOnly: true,
+    //   },
+    // });
+    // (window as any).zE('webWidget', 'identify', {
+    //   name: 'Akira Kogane',
+    //   email: 'akira@voltron.com',
+    // });
   };
 
   console.log(conversation, 'conversation');
@@ -556,12 +562,6 @@ export function Chat(props: IChat) {
                   <span className='name-modal-header-text'>
                     Please introduce yourself:
                   </span>
-                  <img
-                    src={close_icon}
-                    alt='close'
-                    onClick={toggleModal}
-                    className='close-name-modal'
-                  />
                 </div>
                 <div className='modal-separator-container'>
                   <div className='modal-separator' />
@@ -610,10 +610,9 @@ export function Chat(props: IChat) {
                   </span>
                 </div>
               )}
-
               <button
-                className={`chat-with-us`}
-                disabled={isUpdatingUserDetails || !email}
+                className={`chat-with-us + ${(isUpdatingUserDetails || !email || !name) && 'disabled'}`}
+                disabled={isUpdatingUserDetails || !email || !name}
                 onClick={() => sendUserDetails({ email, name })}
               >
                 <span className='chat-question-text'>Chat with us</span>

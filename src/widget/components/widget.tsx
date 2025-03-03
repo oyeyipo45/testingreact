@@ -125,6 +125,41 @@ export function Widget(props: IWidget) {
     key: string;
   }
 
+  // const openWidget = () => {
+  //   setIsOpen(false);
+  //   (window as any).zE('messenger', 'show');
+  //   (window as any).zE('messenger', 'open');
+  //   // (window as any).zE('webWidget', 'prefill', {
+  //   //   name: {
+  //   //     value: name,
+  //   //     readOnly: true,
+  //   //   },
+  //   //   email: {
+  //   //     value: email,
+  //   //     readOnly: true,
+  //   //   },
+  //   // });
+  //   (window as any).zE('webWidget', 'identify', {
+  //     name: 'Akira Kogane',
+  //     email: 'akira@voltron.com',
+  //   });
+  // };
+
+  // const triggerWidget = () => {
+  //   const openWidget = () => {
+  //     setIsOpen(false);
+  //     (window as any).zE('messenger', 'show');
+  //     (window as any).zE('messenger', 'open');
+  //   };
+
+  //   (window as any).zE(
+  //     'messenger:set',
+  //     'conversationFields',
+  //     [{ id: 'name', value: 'damilola' }],
+  //     openWidget,
+  //   );
+  // };
+
   const options = [
     {
       value: 'Turn off notification',
