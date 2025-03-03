@@ -336,7 +336,7 @@ export function Email(props: IChat) {
             <span className='online-text'>Subject</span>
             <div className='message-input-container'>
               <input
-                className='message-input'
+                className='message-input-subject'
                 type='text'
                 placeholder='Subject'
                 value={subjectText}

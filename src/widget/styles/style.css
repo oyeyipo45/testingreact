@@ -221,6 +221,17 @@
   line-height: 160%;
   letter-spacing: 0.2px;
 }
+.message-input-subject {
+  border-radius: 16px;
+  background-color: #f0f4f7;
+  width: 100%;
+  padding: 20px;
+  outline: none;
+  border: none;
+  font-size: 16px;
+  line-height: 1.5em;
+  font-family: Montserrat;
+}
 
 .message-input-textarea {
   border-radius: 16px;
@@ -229,8 +240,10 @@
   padding: 20px;
   outline: none;
   border: none;
-  font-size: 14px;
+  font-size: 16px;
   height: 300px;
+  line-height: 1.5em;
+  font-family: Montserrat;
 }
 
 .speak-to-agent-button {
