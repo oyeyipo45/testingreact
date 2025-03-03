@@ -89,7 +89,8 @@ function injectStyle(shadowRoot: HTMLElement) {
   const link = document.createElement('link');
   link.rel = 'stylesheet';
   const fileName = process.env.WIDGET_NAME || 'widget';
-  link.href = process.env.WIDGET_CSS_URL || `/${fileName}.css`;
+  // link.href = process.env.WIDGET_CSS_URL || `/${fileName}.css`;
+  link.href = 'http://authenteak-frontend.pages.dev/widget.css';
   shadowRoot.appendChild(link);
 }
 
